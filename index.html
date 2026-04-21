@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jornadas de Psicología 2026 | UCC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul: #1a316c;
+            --azul-medio: #2a4a9a;
+            --coral: #e8809a;
+            --blanco: #ffffff;
+            --crema: #f9f7f4;
+            --gris: #f0ede8;
+            --texto: #2d2d2d;
+            --texto-suave: #6b6b6b;
+            --borde: #e0dbd2;
+            --sombra: 0 4px 30px rgba(26,49,108,0.08);
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--crema); color: var(--texto); line-height: 1.6; overflow-x: hidden; }
+
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: rgba(26,49,108,0.97); backdrop-filter: blur(12px); padding: 0 5%; display: flex; justify-content: space-between; align-items: center; height: 68px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .nav-logo { color: var(--blanco); font-family: 'Playfair Display', serif; font-size: 1.05rem; font-style: italic; text-decoration: none; }
+        .nav-logo span { color: var(--coral); font-style: normal; }
+        .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 10px; border-radius: 4px; transition: color 0.2s, background 0.2s; }
+        .nav-links a:hover { color: var(--blanco); background: rgba(255,255,255,0.08); }
+        .nav-actions { display: flex; align-items: center; gap: 12px; }
+        .btn-nav-ig { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: color 0.2s; }
+        .btn-nav-ig:hover { color: var(--coral); }
+        .btn-primary { background: var(--coral); color: var(--blanco); padding: 9px 22px; border-radius: 4px; text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; transition: opacity 0.2s, transform 0.2s; border: none; cursor: pointer; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .hero { background: linear-gradient(150deg, #0d1f4a 0%, #1a316c 55%, #2a4a9a 100%); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 120px 5% 80px; position: relative; overflow: hidden; text-align: center; }
+        .hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 15% 50%, rgba(232,128,154,0.14) 0%, transparent 50%), radial-gradient(circle at 85% 20%, rgba(42,74,154,0.4) 0%, transparent 50%); pointer-events: none; }
+        .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; background: rgba(232,128,154,0.15); border: 1px solid rgba(232,128,154,0.3); color: var(--coral); padding: 6px 18px; border-radius: 2px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 28px; position: relative; z-index: 1; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 900; color: var(--blanco); line-height: 1.05; margin-bottom: 20px; position: relative; z-index: 1; }
+        .hero h1 em { color: var(--coral); font-style: italic; }
+        .hero-quote { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(255,255,255,0.5); font-size: 0.95rem; max-width: 520px; margin: 0 auto 10px; position: relative; z-index: 1; line-height: 1.7; }
+        .hero-quote-author { font-size: 0.7rem; color: rgba(255,255,255,0.28); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 44px; position: relative; z-index: 1; }
+        .hero-coords { display: flex; justify-content: center; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; overflow: hidden; margin-bottom: 44px; position: relative; z-index: 1; flex-wrap: wrap; }
+        .coord { padding: 22px 36px; text-align: center; color: var(--blanco); border-right: 1px solid rgba(255,255,255,0.1); min-width: 150px; }
+        .coord:last-child { border-right: none; }
+        .coord-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 600; margin-bottom: 7px; }
+        .coord-val { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; }
+        .hero-cta { position: relative; z-index: 1; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .btn-hero { background: var(--coral); color: var(--blanco); padding: 15px 38px; border-radius: 4px; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: transform 0.2s, opacity 0.2s; border: none; cursor: pointer; }
+        .btn-hero:hover { transform: translateY(-2px); opacity: 0.92; }
+        .btn-hero-outline { background: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.3); padding: 15px 38px; border-radius: 4px; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: all 0.2s; }
+        .btn-hero-outline:hover { border-color: rgba(255,255,255,0.6); color: var(--blanco); }
+        .scroll-hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.22); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 7px; z-index: 1; animation: bounce 2.2s infinite; }
+        .scroll-hint::after { content: '↓'; font-size: 1.1rem; }
+        @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
+
+        .section { padding: 90px 8%; }
+        .section-sm { padding: 60px 8%; }
+        .section-bg { background: var(--blanco); }
+        .section-dark { background: var(--azul); }
+        .section-header { margin-bottom: 52px; }
+        .section-header.centered { text-align: center; }
+        .eyebrow { display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--coral); margin-bottom: 12px; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 700; line-height: 1.15; color: var(--azul); }
+        .section-title em { font-style: italic; color: var(--coral); }
+        .section-desc { font-size: 1rem; color: var(--texto-suave); max-width: 580px; margin-top: 14px; line-height: 1.75; }
+        hr.divider { height: 1px; background: var(--borde); border: none; }
+
+        .proposito-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+        .proposito-text { font-size: 1.05rem; line-height: 1.85; color: var(--texto-suave); }
+        .proposito-text strong { color: var(--azul); font-weight: 600; }
+        .proposito-side { display: flex; flex-direction: column; gap: 18px; }
+        .stat-box { background: var(--crema); border: 1px solid var(--borde); border-radius: 6px; padding: 26px 30px; border-left: 4px solid var(--coral); }
+        .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--azul); line-height: 1; margin-bottom: 5px; }
+        .stat-label { font-size: 0.88rem; color: var(--texto-suave); font-weight: 500; }
+
+        .crono-table { width: 100%; border-collapse: collapse; }
+        .crono-table thead th { background: var(--azul); color: var(--blanco); padding: 13px 16px; text-align: left; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+        .crono-table tbody tr { border-bottom: 1px solid var(--borde); transition: background 0.2s; }
+        .crono-table tbody tr:hover { background: var(--crema); }
+        .crono-table tbody td { padding: 15px 16px; font-size: 0.88rem; color: var(--texto); vertical-align: top; }
+        .crono-hora { font-family: 'DM Mono', monospace; font-weight: 500; color: var(--azul); white-space: nowrap; }
+        .crono-actividad { font-weight: 600; color: var(--azul); }
+        .crono-actividad small { display: block; font-weight: 400; color: var(--texto-suave); font-size: 0.8rem; margin-top: 3px; }
+        .crono-badge { display: inline-block; padding: 3px 9px; border-radius: 2px; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; }
+        .badge-panel1 { background: rgba(26,49,108,0.1); color: #1a316c; }
+        .badge-panel2 { background: rgba(42,74,154,0.1); color: #2a4a9a; }
+        .badge-panel3 { background: rgba(232,128,154,0.15); color: #c05070; }
+        .badge-flash { background: rgba(180,140,0,0.12); color: #806000; }
+        .badge-break { background: rgba(0,0,0,0.06); color: #666; }
+        .badge-apertura { background: rgba(26,49,108,0.08); color: #1a316c; }
+
+        .panel-detail { background: var(--blanco); border-radius: 10px; overflow: hidden; box-shadow: var(--sombra); margin-bottom: 28px; border-left: 5px solid var(--azul); }
+        .panel-detail.p2 { border-left-color: var(--azul-medio); }
+        .panel-detail.p3 { border-left-color: var(--coral); }
+        .panel-header { padding: 28px 34px 22px; border-bottom: 1px solid var(--borde); display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; }
+        .panel-num-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--coral); letter-spacing: 0.1em; margin-bottom: 7px; display: block; }
+        .panel-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--azul); line-height: 1.2; }
+        .panel-meta { display: flex; flex-direction: column; gap: 5px; text-align: right; }
+        .panel-meta-item { font-size: 0.78rem; color: var(--texto-suave); }
+        .panel-meta-item strong { color: var(--azul); }
+        .panel-body { padding: 30px 34px; }
+        .panel-description { font-size: 0.97rem; color: var(--texto-suave); line-height: 1.8; margin-bottom: 26px; padding-left: 16px; border-left: 3px solid var(--coral); font-style: italic; }
+        .panel-disertantes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+        .disertante-card { background: var(--crema); border: 1px solid var(--borde); border-radius: 8px; padding: 18px 20px; transition: border-color 0.2s, transform 0.2s; }
+        .disertante-card:hover { border-color: var(--coral); transform: translateY(-2px); }
+        .dis-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--azul), var(--coral)); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: 700; margin-bottom: 10px; }
+        .dis-name { font-weight: 700; color: var(--azul); font-size: 0.92rem; margin-bottom: 3px; }
+        .dis-inst { font-size: 0.78rem; color: var(--coral); font-weight: 600; margin-bottom: 5px; }
+        .dis-corriente { font-size: 0.76rem; color: var(--texto-suave); margin-bottom: 8px; }
+        .dis-tag { display: inline-block; background: rgba(26,49,108,0.08); color: var(--azul-medio); padding: 3px 9px; border-radius: 2px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+        .moderadora-box { display: flex; align-items: center; gap: 14px; background: rgba(26,49,108,0.05); border-radius: 6px; padding: 15px 18px; margin-bottom: 22px; border: 1px solid rgba(26,49,108,0.1); }
+        .mod-icon { font-size: 1.3rem; }
+        .mod-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--texto-suave); margin-bottom: 3px; }
+        .mod-name { font-weight: 700; color: var(--azul); font-size: 0.92rem; }
+        .mod-role { font-size: 0.76rem; color: var(--texto-suave); }
+
+        .flash-section { background: var(--azul); position: relative; overflow: hidden; }
+        .flash-section::before { content: '⚡'; position: absolute; right: 4%; top: 50%; transform: translateY(-50%); font-size: 18rem; opacity: 0.04; pointer-events: none; }
+        .flash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .flash-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 26px 24px; transition: background 0.3s; }
+        .flash-card:hover { background: rgba(255,255,255,0.1); }
+        .flash-time { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--coral); letter-spacing: 0.1em; margin-bottom: 11px; }
+        .flash-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--blanco); margin-bottom: 9px; line-height: 1.25; }
+        .flash-card-speaker { font-size: 0.83rem; color: rgba(255,255,255,0.65); margin-bottom: 5px; }
+        .flash-card-inst { font-size: 0.73rem; color: var(--coral); font-weight: 600; }
+        .flash-card p { font-size: 0.86rem; color: rgba(255,255,255,0.48); line-height: 1.65; margin-top: 11px; }
+
+        .novedades-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 26px; }
+        .novedad-main { background: var(--blanco); border-radius: 8px; overflow: hidden; box-shadow: var(--sombra); transition: transform 0.3s; }
+        .novedad-main:hover { transform: translateY(-4px); }
+        .novedad-main-img { background: linear-gradient(135deg, var(--azul) 0%, var(--azul-medio) 100%); height: 220px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .novedad-main-img-ph { font-size: 4.5rem; opacity: 0.22; }
+        .novedad-badge { position: absolute; top: 16px; left: 16px; background: var(--coral); color: var(--blanco); padding: 4px 11px; border-radius: 2px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+        .novedad-body { padding: 26px 30px; }
+        .novedad-date { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--texto-suave); margin-bottom: 9px; }
+        .novedad-main h3 { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 700; color: var(--azul); margin-bottom: 11px; line-height: 1.25; }
+        .novedad-main p { color: var(--texto-suave); font-size: 0.9rem; line-height: 1.7; margin-bottom: 16px; }
+        .novedades-side { display: flex; flex-direction: column; gap: 13px; }
+        .novedad-mini { background: var(--blanco); border-radius: 6px; padding: 18px 20px; box-shadow: var(--sombra); display: flex; gap: 13px; border-left: 3px solid transparent; transition: border-color 0.3s, transform 0.2s; }
+        .novedad-mini:hover { border-left-color: var(--coral); transform: translateX(3px); }
+        .novedad-mini-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 2px; }
+        .novedad-mini-cat { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); margin-bottom: 3px; }
+        .novedad-mini h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--azul); line-height: 1.3; margin-bottom: 4px; }
+        .novedad-mini p { font-size: 0.78rem; color: var(--texto-suave); line-height: 1.5; }
+        .novedad-mini-date { font-family: 'DM Mono', monospace; font-size: 0.64rem; color: var(--texto-suave); margin-top: 6px; }
+        .read-more { color: var(--coral); font-weight: 600; font-size: 0.82rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+        .read-more:hover { gap: 10px; }
+
+        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .blog-card { background: var(--blanco); border-radius: 8px; overflow: hidden; box-shadow: var(--sombra); transition: transform 0.3s; }
+        .blog-card:hover { transform: translateY(-5px); }
+        .blog-img { height: 165px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; }
+        .blog-img-1 { background: linear-gradient(135deg, #1a316c, #2a4a9a); }
+        .blog-img-2 { background: linear-gradient(135deg, #2a4a9a, #4a6ab8); }
+        .blog-img-3 { background: linear-gradient(135deg, #e8809a, #c86070); }
+        .blog-cat-pill { position: absolute; bottom: 12px; left: 12px; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 3px 9px; border-radius: 2px; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+        .blog-body { padding: 24px; }
+        .blog-date { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--texto-suave); margin-bottom: 8px; }
+        .blog-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--azul); margin-bottom: 9px; line-height: 1.3; }
+        .blog-card p { font-size: 0.84rem; color: var(--texto-suave); line-height: 1.65; margin-bottom: 14px; }
+        .blog-author { display: flex; align-items: center; gap: 9px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--borde); }
+        .blog-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--azul), var(--coral)); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.62rem; font-weight: 700; flex-shrink: 0; }
+        .blog-author-name { font-size: 0.76rem; font-weight: 600; color: var(--texto); }
+        .blog-author-role { font-size: 0.68rem; color: var(--texto-suave); }
+
+        .galeria-section { background: var(--azul); }
+        .galeria-intro { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 34px; flex-wrap: wrap; gap: 16px; }
+        .galeria-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .galeria-item { border-radius: 6px; overflow: hidden; cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; min-height: 150px; transition: transform 0.3s; }
+        .galeria-item:hover { transform: scale(0.98); }
+        .galeria-item.tall { grid-row: span 2; min-height: 310px; }
+        .galeria-item.wide { grid-column: span 2; }
+        .galeria-placeholder { font-size: 2.7rem; opacity: 0.2; color: white; }
+        .galeria-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,49,108,0.8) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 16px; }
+        .galeria-item:hover .galeria-overlay { opacity: 1; }
+        .galeria-overlay-text { color: white; font-size: 0.78rem; font-weight: 500; }
+        .gb1{background:linear-gradient(135deg,rgba(42,74,154,.5),rgba(26,49,108,.85))} .gb2{background:linear-gradient(135deg,rgba(232,128,154,.3),rgba(200,100,112,.55))} .gb3{background:linear-gradient(135deg,rgba(74,106,184,.5),rgba(42,74,154,.8))} .gb4{background:linear-gradient(135deg,rgba(26,49,108,.8),rgba(15,28,61,.95))} .gb5{background:linear-gradient(135deg,rgba(232,128,154,.5),rgba(26,49,108,.6))} .gb6{background:linear-gradient(135deg,rgba(42,74,154,.6),rgba(232,128,154,.3))}
+        .galeria-upload-note { text-align: center; color: rgba(255,255,255,0.28); font-size: 0.76rem; margin-top: 16px; font-style: italic; }
+
+        .resumenes-tabs { display: flex; margin-bottom: 34px; border-bottom: 2px solid var(--borde); flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; cursor: pointer; padding: 12px 24px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600; color: var(--texto-suave); position: relative; transition: color 0.2s; }
+        .tab-btn::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--coral); transform: scaleX(0); transition: transform 0.3s; }
+        .tab-btn.active { color: var(--azul); }
+        .tab-btn.active::after { transform: scaleX(1); }
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+        .resumen-layout { display: grid; grid-template-columns: 270px 1fr; gap: 42px; align-items: start; }
+        .resumen-info-box { background: var(--crema); border: 1px solid var(--borde); border-radius: 6px; padding: 20px 22px; margin-bottom: 14px; border-left: 4px solid var(--coral); }
+        .resumen-info-label { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--texto-suave); margin-bottom: 4px; }
+        .resumen-info-val { font-size: 0.92rem; font-weight: 600; color: var(--azul); }
+        .resumen-content h3 { font-family: 'Playfair Display', serif; font-size: 1.85rem; font-weight: 700; color: var(--azul); margin-bottom: 16px; line-height: 1.2; }
+        .resumen-intro { font-size: 1.02rem; color: var(--texto-suave); line-height: 1.8; margin-bottom: 22px; border-left: 3px solid var(--coral); padding-left: 16px; font-style: italic; }
+        .resumen-content p { font-size: 0.93rem; color: var(--texto-suave); line-height: 1.8; margin-bottom: 13px; }
+        .resumen-content h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--azul); margin: 22px 0 11px; font-weight: 700; }
+        .takeaways { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+        .takeaway { display: flex; gap: 12px; align-items: flex-start; background: var(--crema); border-radius: 6px; padding: 13px 16px; border: 1px solid var(--borde); }
+        .takeaway-icon { color: var(--coral); font-size: 0.95rem; flex-shrink: 0; margin-top: 2px; }
+        .takeaway-text { font-size: 0.87rem; color: var(--texto-suave); line-height: 1.6; }
+
+        .equipo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 14px; }
+        .equipo-card { background: var(--blanco); border: 1px solid var(--borde); border-radius: 8px; padding: 22px 18px; text-align: center; transition: transform 0.2s, border-color 0.2s; }
+        .equipo-card:hover { transform: translateY(-3px); border-color: var(--coral); }
+        .equipo-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--azul), var(--azul-medio)); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; font-weight: 700; margin: 0 auto 11px; }
+        .equipo-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--azul); margin-bottom: 3px; }
+        .equipo-card .year { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--texto-suave); margin-bottom: 5px; }
+        .equipo-card .rol { font-size: 0.73rem; color: var(--coral); font-weight: 600; }
+
+        .ig-section { background: var(--crema); }
+        .ig-box { background: var(--azul); border-radius: 12px; padding: 60px; text-align: center; position: relative; overflow: hidden; }
+        .ig-box::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 50%, rgba(232,128,154,0.2) 0%, transparent 60%); }
+        .ig-box h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--blanco); margin-bottom: 13px; position: relative; }
+        .ig-box p { color: rgba(255,255,255,0.58); font-size: 0.98rem; margin: 0 auto 30px; position: relative; max-width: 460px; }
+        .btn-ig-large { display: inline-flex; align-items: center; gap: 10px; background: var(--blanco); color: var(--azul); padding: 14px 32px; border-radius: 4px; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: transform 0.2s; position: relative; }
+        .btn-ig-large:hover { transform: scale(1.04); }
+
+        footer { background: #0a1225; color: rgba(255,255,255,0.52); padding: 52px 8%; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 42px; }
+        .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--blanco); font-style: italic; margin-bottom: 12px; }
+        .footer-brand span { color: var(--coral); font-style: normal; }
+        .footer-desc { font-size: 0.83rem; line-height: 1.7; max-width: 285px; }
+        .footer-col h4 { color: var(--blanco); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 15px; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .footer-links a { color: rgba(255,255,255,0.42); text-decoration: none; font-size: 0.83rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--blanco); }
+        .footer-bottom { background: #070d1a; color: rgba(255,255,255,0.2); padding: 17px 8%; text-align: center; font-size: 0.73rem; letter-spacing: 0.04em; }
+
+        @media(max-width:1100px) {
+            .flash-grid { grid-template-columns: 1fr 1fr; }
+            .novedades-grid { grid-template-columns: 1fr; }
+            .blog-grid { grid-template-columns: repeat(2,1fr); }
+            .galeria-grid { grid-template-columns: repeat(2,1fr); }
+            .galeria-item.wide,.galeria-item.tall { grid-column:span 1; grid-row:span 1; min-height:175px; }
+            footer { grid-template-columns: 1fr 1fr; }
+        }
+        @media(max-width:900px) {
+            .proposito-layout,.resumen-layout { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .panel-disertantes-grid { grid-template-columns: 1fr; }
+        }
+        @media(max-width:640px) {
+            .section { padding: 60px 5%; }
+            .blog-grid,.flash-grid { grid-template-columns: 1fr; }
+            .galeria-grid { grid-template-columns: 1fr 1fr; }
+            .hero-coords { flex-direction: column; }
+            .coord { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .coord:last-child { border-bottom: none; }
+            .ig-box { padding: 34px 18px; }
+            footer { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#hero" class="nav-logo">Jornadas de Psicología <span>'26</span></a>
+    <ul class="nav-links">
+        <li><a href="#novedades">Novedades</a></li>
+        <li><a href="#cronograma">Cronograma</a></li>
+        <li><a href="#paneles">Paneles</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#resumenes">Resúmenes</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+    </ul>
+    <div class="nav-actions">
+        <a href="https://www.instagram.com/jornada.de.psicologia" class="btn-nav-ig" target="_blank">📸 @jornada.de.psicologia</a>
+        <a href="https://luma.com/event/evt-gLbsuZkqeJoARkl" class="btn-primary luma-checkout--button" data-luma-action="checkout" data-luma-event-id="evt-gLbsuZkqeJoARkl">Inscribirme</a>
+    </div>
+</nav>
+
+<header class="hero" id="hero">
+    <div class="hero-eyebrow">✦ Facultad de Ciencias de la Salud · UCC · Córdoba</div>
+    <h1>Jornadas de<br><em>Psicología 2026</em></h1>
+    <p class="hero-quote">"La tarea no es tanto ver lo que nadie ha visto, sino pensar lo que nadie ha pensado sobre lo que todos ven."</p>
+    <p class="hero-quote-author">Arthur Schopenhauer · 1788 – 1860</p>
+    <div class="hero-coords">
+        <div class="coord"><div class="coord-label">Fecha</div><div class="coord-val">30 de Abril</div></div>
+        <div class="coord"><div class="coord-label">Horario</div><div class="coord-val">15:00 – 20:00 h</div></div>
+        <div class="coord"><div class="coord-label">Lugar</div><div class="coord-val">Espacio Osvaldo Pol</div></div>
+        <div class="coord"><div class="coord-label">Modalidad</div><div class="coord-val">Presencial</div></div>
+    </div>
+    <div class="hero-cta">
+        <a href="https://luma.com/event/evt-gLbsuZkqeJoARkl" class="btn-hero luma-checkout--button" data-luma-action="checkout" data-luma-event-id="evt-gLbsuZkqeJoARkl">Asegurar mi lugar →</a>
+        <a href="#cronograma" class="btn-hero-outline">Ver programa completo</a>
+    </div>
+    <div class="scroll-hint">Explorar</div>
+</header>
+
+<!-- PROPÓSITO -->
+<section class="section section-bg">
+    <div class="proposito-layout">
+        <div>
+            <div class="section-header">
+                <span class="eyebrow">El rol del psicólogo hoy</span>
+                <h2 class="section-title">Un espacio que <em>vuelve</em></h2>
+            </div>
+            <p class="proposito-text">Las Jornadas de Psicología UCC se inauguraron en <strong>2012</strong> y se consolidaron como un hito de identidad académica. Luego de una pausa desde 2022, un equipo de estudiantes retomó el desafío con una <strong>reinvención estratégica</strong>.<br><br>Buscamos conectar las realidades del mundo actual con el quehacer psicológico: mesas redondas con múltiples corrientes teóricas, charlas flash de alto impacto y networking real entre estudiantes y profesionales.</p>
+        </div>
+        <div class="proposito-side">
+            <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Paneles en formato mesa redonda</div></div>
+            <div class="stat-box"><div class="stat-num">15+</div><div class="stat-label">Profesionales e instituciones participantes</div></div>
+            <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Charlas Flash estilo TED de 15 minutos</div></div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- NOVEDADES -->
+<section class="section" id="novedades">
+    <div class="section-header">
+        <span class="eyebrow">Lo último</span>
+        <h2 class="section-title">Novedades del <em>evento</em></h2>
+        <p class="section-desc">Confirmaciones, anuncios y actualizaciones del equipo organizador.</p>
+    </div>
+    <div class="novedades-grid">
+        <div class="novedad-main">
+            <div class="novedad-main-img"><span class="novedad-main-img-ph">🧠</span><span class="novedad-badge">🔴 Destacado</span></div>
+            <div class="novedad-body">
+                <div class="novedad-date">15 de Abril, 2026</div>
+                <h3>Programa completo confirmado: disertantes, paneles y cronograma oficial</h3>
+                <p>Después de meses de trabajo intenso, el cronograma está cerrado. Tres paneles, tres charlas flash y más de quince profesionales de corrientes tan diversas como Psicoanálisis, TCC, DBT, ACT, Gestalt, Sistémica y PINE. ¡Todo listo para el 30 de Abril!</p>
+                <a href="#cronograma" class="read-more">Ver cronograma completo →</a>
+            </div>
+        </div>
+        <div class="novedades-side">
+            <div class="novedad-mini">
+                <div class="novedad-mini-icon">⚡</div>
+                <div>
+                    <div class="novedad-mini-cat">Charla Flash · 15:10 hs</div>
+                    <h4>Lic. Valentina Seita: Posicionamiento profesional en redes</h4>
+                    <p>Egresada y docente UCC, comparte cómo construyó su presencia digital desde la evidencia.</p>
+                    <div class="novedad-mini-date">10 ABR · 2026</div>
+                </div>
+            </div>
+            <div class="novedad-mini">
+                <div class="novedad-mini-icon">🤖</div>
+                <div>
+                    <div class="novedad-mini-cat">Charla Flash · 16:45 hs</div>
+                    <h4>Lucas Tortonese presenta MENTA: IA para la gestión clínica</h4>
+                    <p>Software innovador que integra inteligencia artificial en el ejercicio del psicólogo.</p>
+                    <div class="novedad-mini-date">08 ABR · 2026</div>
+                </div>
+            </div>
+            <div class="novedad-mini">
+                <div class="novedad-mini-icon">💡</div>
+                <div>
+                    <div class="novedad-mini-cat">Charla Flash · 18:30 hs</div>
+                    <h4>Ing. Marcela Schwindt: IGNA y el emprendimiento de triple impacto</h4>
+                    <p>La cátedra IGNA de la UCC comparte herramientas para psicólogos emprendedores.</p>
+                    <div class="novedad-mini-date">07 ABR · 2026</div>
+                </div>
+            </div>
+            <div class="novedad-mini">
+                <div class="novedad-mini-icon">🎓</div>
+                <div>
+                    <div class="novedad-mini-cat">Inscripción</div>
+                    <h4>Certificado de asistencia válido para actividades extracurriculares UCC</h4>
+                    <p>Todos los inscriptos recibirán su certificado al finalizar la jornada.</p>
+                    <div class="novedad-mini-date">03 ABR · 2026</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- CRONOGRAMA -->
+<section class="section section-bg" id="cronograma">
+    <div class="section-header">
+        <span class="eyebrow">30 de Abril · 15:00 a 20:00 hs</span>
+        <h2 class="section-title">Cronograma <em>oficial</em></h2>
+        <p class="section-desc">Espacio Osvaldo Pol · Campus UCC · Av. Armada Argentina 3555, Córdoba</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="crono-table">
+        <thead><tr><th>#</th><th>Hora</th><th>Duración</th><th>Actividad</th><th>Disertantes / Responsables</th></tr></thead>
+        <tbody>
+            <tr>
+                <td><span class="crono-hora">01</span></td>
+                <td><span class="crono-hora">15:00</span></td>
+                <td>10′</td>
+                <td><span class="crono-badge badge-apertura">Apertura</span><br><span class="crono-actividad">Bienvenida oficial</span></td>
+                <td>Lara Bischoff Liendo · Emiliano Vásquez Reyes<br><small>Anfitriones generales</small></td>
+            </tr>
+            <tr>
+                <td><span class="crono-hora">02</span></td>
+                <td><span class="crono-hora">15:10</span></td>
+                <td>15′</td>
+                <td><span class="crono-badge badge-flash">⚡ Flash</span><br><span class="crono-actividad">Posicionamiento en redes</span></td>
+                <td>Lic. Valentina Seita · UCC<br><small>Coord: Anahí Piovano</small></td>
+            </tr>
+            <tr>
+                <td><span class="crono-hora">03</span></td>
+                <td><span class="crono-hora">15:20</span></td>
+                <td>70′</td>
+                <td><span class="crono-badge badge-panel1">Panel 1</span><br><span class="crono-actividad">Psicosis y consumo problemático</span></td>
+                <td>Lic. Gabriela Richard · Lic. Silvana Cuello · Lic. Julio Zucaría<br><small>Mod: Dra. Griselda Cardozo · Coord: Delfina Berger, Camila Rocca, Emilia Del Rosso</small></td>
+            </tr>
+            <tr>
+                <td><span class="crono-hora">04</span></td>
+                <td><span class="crono-hora">16:30</span></td>
+                <td>15′</td>
+                <td><span class="crono-badge badge-break">Break</span><br><span class="crono-actividad">Networking · Stands informativos</span></td>
+                <td><small>Buffet · Pilar Aliaga · Facundo Ibarra</small></td>
+            </tr>
+            <tr>
+                <td><span class="crono-hora">05</span></td>
+                <td><span class="crono-hora">16:45</span></td>
+                <td>15′</td>
+                <td><span class="crono-badge badge-flash">⚡ Flash</span><br><span class="crono-actividad">MENTA · IA en gestión clínica</span></td>
+                <td>Lic. Lucas Tortonese · MENTA<br><small>Coord: Emiliano Vásquez Reyes</small></td>
+            </tr>
+            <tr>
+                <td><span class="crono-hora">06</span></td>
+                <td><span class="crono-hora">17:00</span></td>
+                <td>85′</td>
+                <td><span class="crono-badge badge-panel2">Panel 2</span><br><span class="crono-actividad">Subjetividades en la era digital</span></td>
+                <td>Lic. Gabriela Richard · Lic. M. Cristina Nallino · Equipo APCVC · Lic. Magdalena Soldevila<br><small>Mod: Lic. Milagros Agüero Sepúlveda · Coord: M. Luz Hernández, Paulina Canedo, Trinidad Vaca</small></td>
+            </tr>
+            <tr>
+                <td><span class="crono-hora">07</span></td>
+                <td><span class="crono-hora">18:15</span></td>
+                <td>15′</td>
+                <td><span class="crono-badge badge-break">Break</span><br><span class="crono-actividad">Networking · Stands informativos</span></td>
+                <td><small>Buffet · Pilar Aliaga · Facundo Ibarra</small></td>
+            </tr>
+            <tr>
+                <td><span class="crono-hora">08</span></td>
+                <td><span class="crono-hora">18:30</span></td>
+                <td>15′</td>
+                <td><span class="crono-badge badge-flash">⚡ Flash</span><br><span class="crono-actividad">IGNA · Emprendimiento e Innovación UCC</span></td>
+                <td>Ing. Marcela Schwindt · IGNA UCC<br><small>Coord: Sofía Stauber</small></td>
+            </tr>
+            <tr>
+                <td><span class="crono-hora">09</span></td>
+                <td><span class="crono-hora">18:45</span></td>
+                <td>85′</td>
+                <td><span class="crono-badge badge-panel3">Panel 3</span><br><span class="crono-actividad">Cuidar a los que cuidan</span></td>
+                <td>Instituto Gestalten · Lic. M. Emilia Schultz · Equipo APCVC · Lic. Liliana Beltramo · Lic. Rodrigo Moreno<br><small>Mod: Est. Julieta Alleman · Coord: Sofía Cavallo, Santiago Graff, Amparo Rassi</small></td>
+            </tr>
+            <tr>
+                <td><span class="crono-hora">10</span></td>
+                <td><span class="crono-hora">20:00</span></td>
+                <td>—</td>
+                <td><span class="crono-badge badge-apertura">Cierre</span><br><span class="crono-actividad">Despedida · Brindis</span></td>
+                <td>Lara Bischoff Liendo · Emiliano Vásquez Reyes</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</section>
+
+<!-- PANELES -->
+<section class="section" id="paneles">
+    <div class="section-header centered">
+        <span class="eyebrow">Programa académico</span>
+        <h2 class="section-title">Los tres <em>paneles</em> temáticos</h2>
+        <p class="section-desc" style="margin:14px auto 0;">Mesa redonda con disertantes de distintas corrientes teóricas e instituciones de Córdoba.</p>
+    </div>
+
+    <div class="panel-detail">
+        <div class="panel-header">
+            <div>
+                <span class="panel-num-label">PANEL 01 · 15:20 hs · 70 minutos</span>
+                <div class="panel-title">Psicosis y consumo problemático</div>
+            </div>
+            <div class="panel-meta">
+                <div class="panel-meta-item"><strong>Moderadora:</strong> Dra. Griselda Patricia Cardozo</div>
+                <div class="panel-meta-item"><strong>Corriente:</strong> Psicoanálisis · Docente UCC</div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="moderadora-box">
+                <div class="mod-icon">🎙️</div>
+                <div>
+                    <div class="mod-label">Moderadora del panel</div>
+                    <div class="mod-name">Dra. Griselda Patricia Cardozo</div>
+                    <div class="mod-role">Docente UCC · Orientación: Psicoanálisis · 0817949@ucc.edu.ar</div>
+                </div>
+            </div>
+            <p class="panel-description">Una lectura multidimensional de la relación entre psicosis y adicciones desde la clínica institucional y comunitaria, interrogando los modos de intervención actuales y los dispositivos de tratamiento disponibles en la región.</p>
+            <div class="panel-disertantes-grid">
+                <div class="disertante-card">
+                    <div class="dis-avatar">GR</div>
+                    <div class="dis-name">Lic. Gabriela M. Richard Losano</div>
+                    <div class="dis-inst">Fundación ProSalud</div>
+                    <div class="dis-corriente">Magíster en prevención y tratamiento de conductas adictivas (Univ. Valencia). Directora de la Diplomatura en Adicciones UCC.</div>
+                    <span class="dis-tag">Panel 1 + Panel 2</span>
+                </div>
+                <div class="disertante-card">
+                    <div class="dis-avatar">SC</div>
+                    <div class="dis-name">Lic. Silvana Cuello</div>
+                    <div class="dis-inst">Instituto Semas</div>
+                    <div class="dis-corriente">TCC integrada con Neurociencias. Diplomada en adicciones. Consultora en consumo de sustancias en ámbito laboral. Psicóloga Policía Pcia. Cba.</div>
+                    <span class="dis-tag">Recurso audiovisual</span>
+                </div>
+                <div class="disertante-card">
+                    <div class="dis-avatar">JZ</div>
+                    <div class="dis-name">Lic. Julio Ismael Zucaría</div>
+                    <div class="dis-inst">Centro RAAC · Sec. Salud Mental Pcia. Córdoba</div>
+                    <div class="dis-corriente">Modelo Sanitario · DBT. Coordinador Centro RAAC Capital. Docente de Sistemas Psicológicos en la UNC.</div>
+                    <span class="dis-tag">Recurso audiovisual</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-detail p2">
+        <div class="panel-header">
+            <div>
+                <span class="panel-num-label">PANEL 02 · 17:00 hs · 85 minutos</span>
+                <div class="panel-title">Subjetividades contemporáneas en la era digital</div>
+            </div>
+            <div class="panel-meta">
+                <div class="panel-meta-item"><strong>Moderadora:</strong> Lic. Milagros Agüero Sepúlveda</div>
+                <div class="panel-meta-item"><strong>Corriente:</strong> Psicoanálisis Focalizado · Docente UCC</div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="moderadora-box">
+                <div class="mod-icon">🎙️</div>
+                <div>
+                    <div class="mod-label">Moderadora del panel</div>
+                    <div class="mod-name">Lic. Milagros Agüero Sepúlveda</div>
+                    <div class="mod-role">Docente UCC · Orientación: Psicoanálisis Focalizado · 1866499@ucc.edu.ar</div>
+                </div>
+            </div>
+            <p class="panel-description">Exploración crítica de cómo los entornos digitales transforman la constitución subjetiva, el lazo social y las nuevas demandas clínicas. Con foco en niños, niñas y adolescentes en la era de las TICs e inteligencia artificial.</p>
+            <div class="panel-disertantes-grid">
+                <div class="disertante-card">
+                    <div class="dis-avatar">GR</div>
+                    <div class="dis-name">Lic. Gabriela M. Richard Losano</div>
+                    <div class="dis-inst">Fundación ProSalud</div>
+                    <div class="dis-corriente">Promoción de la Salud y Abordaje Multidimensional de Adicciones.</div>
+                    <span class="dis-tag">Panel 1 + Panel 2</span>
+                </div>
+                <div class="disertante-card">
+                    <div class="dis-avatar">CN</div>
+                    <div class="dis-name">Lic. María Cristina Nallino</div>
+                    <div class="dis-inst">Instituto IPIC (Directora)</div>
+                    <div class="dis-corriente">Gestalt · Teoría Sistémica · Neurociencias · Teoría del Apego · Trauma. Subsecretaria de Familia de la Municipalidad de Córdoba.</div>
+                    <span class="dis-tag">Stand informativo</span>
+                </div>
+                <div class="disertante-card">
+                    <div class="dis-avatar">MS</div>
+                    <div class="dis-name">Lic. Magdalena Soldevila</div>
+                    <div class="dis-inst">Asociación Construyendo Redes · IFPP</div>
+                    <div class="dis-corriente">Psicoanálisis. Egresada de la UNC, miembro de Construyendo Redes, docente del IFPP.</div>
+                    <span class="dis-tag">Panel 2</span>
+                </div>
+                <div class="disertante-card">
+                    <div class="dis-avatar">AP</div>
+                    <div class="dis-name">Equipo APCVC</div>
+                    <div class="dis-inst">Cátedra de Psicología de Pareja, Familia y Grupos · UCC</div>
+                    <div class="dis-corriente">Psicoanálisis Contemporáneo Vincular. Virginia Grosso (APCVC), Sofía González (APCVC), Emiliano Gambuzza, Camila Castillo y ayudantes alumnos.</div>
+                    <span class="dis-tag">Panel 2 + Panel 3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-detail p3">
+        <div class="panel-header">
+            <div>
+                <span class="panel-num-label">PANEL 03 · 18:45 hs · 85 minutos</span>
+                <div class="panel-title">Cuidar a los que cuidan</div>
+            </div>
+            <div class="panel-meta">
+                <div class="panel-meta-item"><strong>Moderadora:</strong> Est. Julieta Alleman</div>
+                <div class="panel-meta-item"><strong>5° año · Lic. en Psicología · UCC</strong></div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="moderadora-box">
+                <div class="mod-icon">🎙️</div>
+                <div>
+                    <div class="mod-label">Moderadora del panel</div>
+                    <div class="mod-name">Est. Julieta Alleman</div>
+                    <div class="mod-role">5° año · Licenciatura en Psicología · UCC</div>
+                </div>
+            </div>
+            <p class="panel-description">El malestar de quienes ejercen roles de cuidado: desgaste, burnout, fatiga por compasión y las estrategias necesarias para sostener prácticas saludables. El cuidado del cuidador como derecho y como política pública.</p>
+            <div class="panel-disertantes-grid">
+                <div class="disertante-card">
+                    <div class="dis-avatar">ES</div>
+                    <div class="dis-name">Lic. María Emilia Schultz</div>
+                    <div class="dis-inst">Centro Validar</div>
+                    <div class="dis-corriente">ACT · Terapias Contextuales. JTP de Psicopatología General UCC. Co-directora del Entrenamiento en Competencias Clínicas en Fundación Validar.</div>
+                    <span class="dis-tag">Panel 3</span>
+                </div>
+                <div class="disertante-card">
+                    <div class="dis-avatar">LB</div>
+                    <div class="dis-name">Lic. Liliana Beltramo</div>
+                    <div class="dis-inst">Formación Reichiana · PINE</div>
+                    <div class="dis-corriente">Psico-Inmuno-Neuro-Endocrinología. Más de 30 años de trayectoria clínica. Terapia Psico-Corporal Caractero-Emocional.</div>
+                    <span class="dis-tag">Panel 3</span>
+                </div>
+                <div class="disertante-card">
+                    <div class="dis-avatar">RM</div>
+                    <div class="dis-name">Lic. Rodrigo Moreno</div>
+                    <div class="dis-inst">EPTSA</div>
+                    <div class="dis-corriente">Magíster en Drogadependencia. Consultor en prevención y asistencia de adicciones. Psicólogo del Servicio Penitenciario de Córdoba.</div>
+                    <span class="dis-tag">Panel 3</span>
+                </div>
+                <div class="disertante-card">
+                    <div class="dis-avatar">IG</div>
+                    <div class="dis-name">Instituto Gestalten</div>
+                    <div class="dis-inst">Instituto Gestalten Córdoba</div>
+                    <div class="dis-corriente">Gestalt. Formación clínica en Gestalt aplicada a contextos de cuidado y salud mental profesional.</div>
+                    <span class="dis-tag">Panel 3 + Stand</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CHARLAS FLASH -->
+<section class="section flash-section" id="flash">
+    <div class="section-header">
+        <span class="eyebrow" style="color:var(--coral)">El formato TED · 15 minutos exactos</span>
+        <h2 class="section-title" style="color:var(--blanco)">Charlas <em>Flash</em></h2>
+        <p class="section-desc">Presentaciones de alto impacto diseñadas para transmitir lo esencial en el menor tiempo posible.</p>
+    </div>
+    <div class="flash-grid">
+        <div class="flash-card">
+            <div class="flash-time">15:10 hs · 15 minutos · Apertura de jornada</div>
+            <h3>Posicionamiento profesional en redes sociales</h3>
+            <div class="flash-card-speaker">Lic. Valentina Seita</div>
+            <div class="flash-card-inst">Egresada con Premio Universidad · Docente UCC · TCC</div>
+            <p>Sus primeros pasos construyendo presencia digital como psicóloga: nicho, contenido basado en evidencia y el valor de la red de pares desde los años de carrera.</p>
+        </div>
+        <div class="flash-card">
+            <div class="flash-time">16:45 hs · 15 minutos · Entre Panel 1 y Panel 2</div>
+            <h3>MENTA: inteligencia artificial en la clínica psicológica</h3>
+            <div class="flash-card-speaker">Lic. Lucas Tortonese</div>
+            <div class="flash-card-inst">MENTA · Software de gestión clínica con IA · soymenta.io</div>
+            <p>MENTA es una herramienta innovadora para la gestión de la práctica clínica del psicólogo, integrando inteligencia artificial en el seguimiento y administración de pacientes.</p>
+        </div>
+        <div class="flash-card">
+            <div class="flash-time">18:30 hs · 15 minutos · Entre Panel 2 y Panel 3</div>
+            <h3>IGNA: emprendimiento e innovación de triple impacto</h3>
+            <div class="flash-card-speaker">Ing. Marcela Schwindt</div>
+            <div class="flash-card-inst">IGNA · Cátedra de Emprendimiento e Innovación · UCC</div>
+            <p>La cátedra IGNA de la UCC comparte herramientas de emprendimiento sostenible para profesionales de la salud que quieren construir proyectos con impacto real.</p>
+        </div>
+    </div>
+</section>
+
+<!-- BLOG -->
+<section class="section section-bg" id="blog">
+    <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+        <div>
+            <span class="eyebrow">Reflexiones académicas</span>
+            <h2 class="section-title">Blog de los <em>paneles</em></h2>
+        </div>
+        <a href="#" class="read-more">Ver todos los artículos →</a>
+    </div>
+    <div class="blog-grid">
+        <div class="blog-card">
+            <div class="blog-img blog-img-1"><span>🧩</span><span class="blog-cat-pill">Panel 1</span></div>
+            <div class="blog-body">
+                <div class="blog-date">Informe preparatorio · Psicosis y consumo</div>
+                <h3>La comorbilidad psicosis-adicciones: abordajes desde la clínica institucional cordobesa</h3>
+                <p>¿El consumo causa la psicosis o la visibiliza? Tensiones diagnósticas, el rol de la familia y los modelos de intervención disponibles en Córdoba.</p>
+                <a href="#resumenes" class="read-more">Leer resumen completo →</a>
+                <div class="blog-author">
+                    <div class="blog-avatar">DB</div>
+                    <div><div class="blog-author-name">Delfina Berger · Camila Rocca · Emilia Del Rosso</div><div class="blog-author-role">Equipo coordinador Panel 1 · UCC 2026</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="blog-card">
+            <div class="blog-img blog-img-2"><span>📱</span><span class="blog-cat-pill">Panel 2</span></div>
+            <div class="blog-body">
+                <div class="blog-date">Informe preparatorio · Subjetividades digitales</div>
+                <h3>El 50% de los niños argentinos inicia el uso de tecnología antes del año de vida</h3>
+                <p>Impacto en la constitución subjetiva, el grooming, el FOMO, la ciberpatología y el desafío de acompañar infancias en entornos hiperdigitalizados.</p>
+                <a href="#resumenes" class="read-more">Leer resumen completo →</a>
+                <div class="blog-author">
+                    <div class="blog-avatar">LB</div>
+                    <div><div class="blog-author-name">Lara Bischoff Liendo · Amparo Rassi</div><div class="blog-author-role">Equipo coordinador Panel 2 · UCC 2026</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="blog-card">
+            <div class="blog-img blog-img-3"><span>💚</span><span class="blog-cat-pill">Panel 3</span></div>
+            <div class="blog-body">
+                <div class="blog-date">Informe preparatorio · Cuidar al cuidador</div>
+                <h3>¿Quién cuida al cuidador? Sobrecarga, desgaste y vínculos de dependencia</h3>
+                <p>La OMS estima que más de 1.000 millones de personas viven con alguna discapacidad. El cuidador primario asume roles invisibilizados que impactan en su salud biopsicosocial.</p>
+                <a href="#resumenes" class="read-more">Leer resumen completo →</a>
+                <div class="blog-author">
+                    <div class="blog-avatar">SC</div>
+                    <div><div class="blog-author-name">Sofía Cavallo · M. Luz Hernández · Santiago Graff</div><div class="blog-author-role">Equipo coordinador Panel 3 · UCC 2026</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- GALERÍA -->
+<section class="section galeria-section" id="galeria">
+    <div class="galeria-intro">
+        <div>
+            <span class="eyebrow" style="color:var(--coral)">Memoria fotográfica</span>
+            <h2 class="section-title" style="color:var(--blanco)">Galería del <em>evento</em></h2>
+            <p class="section-desc">Momentos de ediciones anteriores (2012–2022) y el making-of de la Jornada 2026.</p>
+        </div>
+        <a href="https://www.instagram.com/jornada.de.psicologia" target="_blank" class="btn-primary">Ver en Instagram →</a>
+    </div>
+    <div class="galeria-grid">
+        <div class="galeria-item tall gb1"><span class="galeria-placeholder">📸</span><div class="galeria-overlay"><span class="galeria-overlay-text">Mesa redonda · Jornadas UCC edición anterior</span></div></div>
+        <div class="galeria-item gb2"><span class="galeria-placeholder">🎤</span><div class="galeria-overlay"><span class="galeria-overlay-text">Disertante en charla</span></div></div>
+        <div class="galeria-item gb3"><span class="galeria-placeholder">🤝</span><div class="galeria-overlay"><span class="galeria-overlay-text">Networking entre paneles</span></div></div>
+        <div class="galeria-item wide gb4"><span class="galeria-placeholder">👥</span><div class="galeria-overlay"><span class="galeria-overlay-text">Público participante · Campus UCC</span></div></div>
+        <div class="galeria-item gb5"><span class="galeria-placeholder">🎓</span><div class="galeria-overlay"><span class="galeria-overlay-text">Entrega de certificados</span></div></div>
+        <div class="galeria-item gb2"><span class="galeria-placeholder">💬</span><div class="galeria-overlay"><span class="galeria-overlay-text">Debate abierto con el público</span></div></div>
+    </div>
+    <p class="galeria-upload-note">Las fotos del evento 2026 serán publicadas aquí tras la jornada del 30 de Abril. · Fotos de ediciones anteriores: Facultad de Filosofía y Humanidades UCC.</p>
+</section>
+
+<!-- RESÚMENES -->
+<section class="section section-bg" id="resumenes">
+    <div class="section-header">
+        <span class="eyebrow">Contenido académico</span>
+        <h2 class="section-title">Resúmenes de <em>paneles</em></h2>
+        <p class="section-desc">Síntesis de los informes preparados por los equipos colaboradores de cada panel.</p>
+    </div>
+    <div class="resumenes-tabs">
+        <button class="tab-btn active" onclick="showTab('p1', this)">Panel 1 · Psicosis y consumo</button>
+        <button class="tab-btn" onclick="showTab('p2', this)">Panel 2 · Subjetividades digitales</button>
+        <button class="tab-btn" onclick="showTab('p3', this)">Panel 3 · Cuidar al cuidador</button>
+    </div>
+
+    <div id="p1" class="tab-content active">
+        <div class="resumen-layout">
+            <div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Panel</div><div class="resumen-info-val">01 · Psicosis y consumo problemático</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Moderadora</div><div class="resumen-info-val">Dra. Griselda Patricia Cardozo</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Horario</div><div class="resumen-info-val">15:20 hs · 70 minutos</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Corrientes</div><div class="resumen-info-val">Psicoanálisis · TCC + Neurociencias · Modelo Sanitario · DBT</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Informe</div><div class="resumen-info-val">Lara Bischoff Liendo · Amparo Rassi</div></div>
+            </div>
+            <div class="resumen-content">
+                <h3>Psicosis y consumo problemático: abordajes posibles</h3>
+                <p class="resumen-intro">Este panel propone una lectura multidimensional de la relación entre psicosis y consumo, interrogando los marcos teóricos y clínicos que orientan el trabajo con pacientes que presentan estas comorbilidades desde distintas corrientes e instituciones.</p>
+                <p>La comorbilidad entre psicosis y adicciones es uno de los desafíos más complejos de la práctica contemporánea. Los encuadres institucionales suelen estar mal adaptados para responder a esta complejidad, generando tensiones entre el modelo biomédico, los enfoques psicodinámicos y los comunitarios.</p>
+                <p>Los disertantes abordarán sus experiencias desde el Centro RAAC, la Fundación ProSalud y el Instituto Semas, con miradas que van desde el Modelo Sanitario y DBT hasta la TCC integrada con Neurociencias.</p>
+                <h4>Preguntas rectoras del debate</h4>
+                <div class="takeaways">
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿El consumo es factor causal, precipitante o visibiliza una vulnerabilidad previa en los cuadros psicóticos?</span></div>
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿Cómo abordamos el concepto de "cura" en cuadros psicóticos? ¿Qué rol ocupa la familia en el proceso terapéutico?</span></div>
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿De qué manera la naturalización social del consumo de ciertas sustancias complejiza el trabajo preventivo con adolescentes?</span></div>
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿Hasta qué punto el sistema de salud permite un abordaje interdisciplinario real, o continúa la lógica fragmentada de intervención?</span></div>
+                </div>
+                <p style="margin-top:20px;font-style:italic;color:var(--coral);font-size:0.88rem;">El resumen completo post-evento estará disponible aquí en Mayo 2026.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="p2" class="tab-content">
+        <div class="resumen-layout">
+            <div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Panel</div><div class="resumen-info-val">02 · Subjetividades en la era digital</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Moderadora</div><div class="resumen-info-val">Lic. Milagros Agüero Sepúlveda</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Horario</div><div class="resumen-info-val">17:00 hs · 85 minutos</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Corrientes</div><div class="resumen-info-val">Psicoanálisis · Gestalt · Sistémica · Psicoanálisis Vincular</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Informe</div><div class="resumen-info-val">M. Luz Hernández · Paulina Canedo · Trinidad Vaca</div></div>
+            </div>
+            <div class="resumen-content">
+                <h3>Subjetividades en la era digital: nuevas demandas, nuevas clínicas</h3>
+                <p class="resumen-intro">En Argentina, el 94,5% de las personas se conectan a internet y pasan casi 5 horas diarias conectadas. El 50% de los niños inicia el uso de tecnologías entre los primeros meses y el primer año de vida.</p>
+                <p>Los nativos digitales presentan una apropiación tecnológica muy superior a la de sus padres. Beatriz Janin señala que los adultos ensimismados con pantallas descuidan la conexión con los niños: "las pantallas vienen a sustituir a los humanos" en momentos clave del desarrollo subjetivo.</p>
+                <p>La Dra. Copello describe cómo las redes sociales generan una nueva "ciberpatología": adormecimiento de la conciencia, oscilación entre fantasía y realidad, dificultad para encontrarse en el entorno inmediato. El vacío existencial, la ansiedad y la pérdida de autenticidad son las nuevas consultas del siglo XXI.</p>
+                <h4>Preguntas rectoras del debate</h4>
+                <div class="takeaways">
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿De qué modo la exposición temprana y persistente a pantallas afecta la estructuración subjetiva de NNyA?</span></div>
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿Estamos vulnerabilizando las infancias por la falta de cuidado y regulación de los entornos digitales?</span></div>
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿Cómo influye la hiperestimulación de las redes en los procesos atencionales y el desarrollo del lenguaje?</span></div>
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">La consulta online y la telepsicología: ¿qué cambia en el vínculo terapéutico con la mediación de la pantalla?</span></div>
+                </div>
+                <p style="margin-top:20px;font-style:italic;color:var(--coral);font-size:0.88rem;">El resumen completo post-evento estará disponible aquí en Mayo 2026.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="p3" class="tab-content">
+        <div class="resumen-layout">
+            <div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Panel</div><div class="resumen-info-val">03 · Cuidar a los que cuidan</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Moderadora</div><div class="resumen-info-val">Est. Julieta Alleman</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Horario</div><div class="resumen-info-val">18:45 hs · 85 minutos</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Corrientes</div><div class="resumen-info-val">ACT · Gestalt · Psicoanálisis Vincular · PINE · Clínica en adicciones</div></div>
+                <div class="resumen-info-box"><div class="resumen-info-label">Informe</div><div class="resumen-info-val">Sofía Cavallo · Delfina Berger · M. Luz Hernández · Santiago Graff · Trinidad Vaca</div></div>
+            </div>
+            <div class="resumen-content">
+                <h3>Cuidar a los que cuidan: el malestar del cuidador primario</h3>
+                <p class="resumen-intro">La OMS define al cuidador primario como quien asume voluntariamente la responsabilidad de cuidar a una persona dependiente, tomando decisiones y cubriendo sus necesidades básicas de manera directa o indirecta.</p>
+                <p>El panel aborda dos ejes complementarios: los efectos subjetivos de la dependencia en el vínculo cuidador-persona cuidada, y la necesidad urgente de construir nuevas perspectivas en torno al cuidado del propio cuidador. Se busca romper con el foco exclusivo en la persona en situación de vulnerabilidad.</p>
+                <p>Más del 15% de la población mundial vive con alguna discapacidad. Los cuidadores primarios afrontan responsabilidades físicas, emocionales y económicas sostenidas en el tiempo, enfrentando sobrecarga, desgaste y aislamiento. En Córdoba existe el Programa "Cuidar a los que Cuidan" del Ministerio de Salud y el Programa CuidarNos para cuidadores formales de residencias de larga estadía.</p>
+                <h4>Preguntas rectoras del debate</h4>
+                <div class="takeaways">
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿De qué manera la asunción del rol de cuidador transforma la identidad personal de quien cuida? ¿Qué se pierde y qué emerge?</span></div>
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿Cómo se ven tensionados el amor, la responsabilidad y la afectividad en vínculos de cuidado prolongado?</span></div>
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿Por qué las necesidades de los cuidadores familiares suelen quedar invisibilizadas o dadas por sentadas por el sistema?</span></div>
+                    <div class="takeaway"><span class="takeaway-icon">→</span><span class="takeaway-text">¿Qué lugar ocupa el sufrimiento del cuidador en los dispositivos actuales de salud? ¿Cómo intervenir en familias desgastadas?</span></div>
+                </div>
+                <p style="margin-top:20px;font-style:italic;color:var(--coral);font-size:0.88rem;">El resumen completo post-evento estará disponible aquí en Mayo 2026.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EQUIPO -->
+<section class="section" id="equipo">
+    <div class="section-header centered">
+        <span class="eyebrow">Quiénes somos</span>
+        <h2 class="section-title">El equipo <em>organizador</em></h2>
+        <p class="section-desc" style="margin:14px auto 0;">Estudiantes de distintos años de la Licenciatura en Psicología UCC que hicieron posible este evento.</p>
+    </div>
+    <div class="equipo-grid">
+        <div class="equipo-card"><div class="equipo-avatar">LB</div><h4>Lara Bischoff Liendo</h4><div class="year">5° año</div><div class="rol">Anfitriona General</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">EV</div><h4>Emiliano Vásquez Reyes</h4><div class="year">4° año</div><div class="rol">Anfitrión General</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">DB</div><h4>María Delfina Berger</h4><div class="year">4° año</div><div class="rol">Coordinadora Panel 1</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">ML</div><h4>María Luz Hernández</h4><div class="year">4° año</div><div class="rol">Coordinadora Panel 2</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">SC</div><h4>Sofía Cavallo</h4><div class="year">3° año</div><div class="rol">Coordinadora Panel 3</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">AP</div><h4>Anahí Piovano</h4><div class="year">4° año</div><div class="rol">Marketing & RRSS</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">SS</div><h4>Sofía Stauber</h4><div class="year">4° año</div><div class="rol">Diseño & Branding</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">CR</div><h4>Camila Rocca</h4><div class="year">4° año</div><div class="rol">Colaboradora Panel 1</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">PC</div><h4>Paulina Canedo</h4><div class="year">2° año</div><div class="rol">Colaboradora Panel 2</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">TV</div><h4>Trinidad Vaca</h4><div class="year">3° año</div><div class="rol">Colaboradora Panel 3</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">SG</div><h4>Santiago Graff</h4><div class="year">2° año</div><div class="rol">Colaborador Panel 3</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">AR</div><h4>Amparo Rassi</h4><div class="year">T.O.</div><div class="rol">Colaboradora Panel 2</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">FI</div><h4>Facundo Ibarra</h4><div class="year">4° año</div><div class="rol">Buffet & Breaks</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">PA</div><h4>Pilar Aliaga</h4><div class="year">4° año</div><div class="rol">Buffet & Breaks</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">JA</div><h4>Julieta Alleman</h4><div class="year">5° año</div><div class="rol">Moderadora Panel 3</div></div>
+        <div class="equipo-card"><div class="equipo-avatar">ED</div><h4>Emilia Del Rosso</h4><div class="year">4° año</div><div class="rol">Recepción · Panel 1</div></div>
+    </div>
+</section>
+
+<!-- CTA INSTAGRAM -->
+<section class="section-sm ig-section">
+    <div class="ig-box">
+        <h2>Toda la previa en<br>Instagram</h2>
+        <p>Disertantes, cronograma, anticipos y la comunidad que crece cada día. ¡Todo pasa por nuestras redes!</p>
+        <a href="https://www.instagram.com/jornada.de.psicologia" class="btn-ig-large" target="_blank">📸 @jornada.de.psicologia</a>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section section-bg" style="text-align:center;padding-top:80px;padding-bottom:80px;">
+    <span class="eyebrow">30 de Abril · Quedan pocos lugares</span>
+    <h2 class="section-title" style="margin:12px auto 18px;">¿Listos para repensar<br>la <em>Psicología</em>?</h2>
+    <p class="section-desc" style="margin:0 auto 32px;">15:00 a 20:00 hs · Espacio Osvaldo Pol · Av. Armada Argentina 3555 · Córdoba</p>
+    <a href="https://luma.com/event/evt-gLbsuZkqeJoARkl" class="btn-primary luma-checkout--button" style="font-size:1rem;padding:15px 40px;" data-luma-action="checkout" data-luma-event-id="evt-gLbsuZkqeJoARkl">Inscribirme al evento →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div>
+        <div class="footer-brand">Jornadas de Psicología <span>'26</span></div>
+        <p class="footer-desc">Espacio Osvaldo Pol · Av. Armada Argentina 3555<br>Córdoba, Argentina.<br><br>Organizado por la Comunidad de Estudiantes de la Lic. en Psicología · Facultad de Ciencias de la Salud · UCC.</p>
+    </div>
+    <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul class="footer-links">
+            <li><a href="#novedades">Novedades</a></li>
+            <li><a href="#cronograma">Cronograma</a></li>
+            <li><a href="#paneles">Paneles y disertantes</a></li>
+            <li><a href="#blog">Blog académico</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#resumenes">Resúmenes</a></li>
+            <li><a href="#equipo">Equipo organizador</a></li>
+        </ul>
+    </div>
+    <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul class="footer-links">
+            <li><a href="https://www.instagram.com/jornada.de.psicologia" target="_blank">📸 Instagram</a></li>
+            <li><a href="https://luma.com/event/evt-gLbsuZkqeJoARkl" target="_blank">Inscripción (Luma)</a></li>
+        </ul>
+        <h4 style="margin-top:22px;">Sede</h4>
+        <ul class="footer-links">
+            <li><a href="#">Espacio Osvaldo Pol</a></li>
+            <li><a href="#">Campus UCC · Córdoba</a></li>
+        </ul>
+    </div>
+</footer>
+<div class="footer-bottom">© 2026 · Equipo Organizador Jornadas de Psicología · Facultad de Ciencias de la Salud · UCC Córdoba</div>
+
+<script id="luma-checkout" src="https://embed.lu.ma/checkout-button.js"></script>
+<script>
+    function showTab(id, btn) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.panel-detail, .blog-card, .novedad-mini, .stat-box, .disertante-card, .equipo-card, .flash-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(16px)';
+        el.style.transition = 'opacity 0.42s ease, transform 0.42s ease';
+        observer.observe(el);
+    });
+</script>
+</body>
+</html>
