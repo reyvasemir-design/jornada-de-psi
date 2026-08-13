@@ -3,109 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOCCEUS - Seccion Psicología · Diario y Conversatorios</title>
+<title>SOCCEUS · Psicología — Diario y Conversatorios</title>
 <style>
-  :root{
+  :root {
     --azul: #1A2E44;
     --menta: #7FB5A3;
     --coral: #E8809A;
     --papel: #F4F1EA;
     --grafito: #3A3A3A;
+    --blanco: #FFFFFF;
+    --sombra: rgba(26, 46, 68, 0.08);
+    --sombra-hover: rgba(26, 46, 68, 0.14);
+    --radio: 16px;
+    --transicion: 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* ===== RESET Y ACCESIBILIDAD ===== */
-  * { box-sizing: border-box; margin:0; padding:0; }
-  
-  html {
-    scroll-behavior: smooth; /* Scroll suave para links internos */
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body{
+  html { scroll-behavior: smooth; }
+
+  body {
     background-color: var(--papel);
     color: var(--grafito);
     font-family: Georgia, 'Times New Roman', serif;
-    line-height: 1.6;
-    overflow-x: hidden; /* Evita scroll horizontal con animaciones */
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
-  a { text-decoration: none; }
+  a { 
+    text-decoration: none; 
+    color: inherit; 
+    outline: none;
+  }
 
-  /* ===== CLASES DE ANIMACIÓN (NUEVO) ===== */
-  /* Estado inicial para elementos que entran con scroll */
-  .fade-up {
+  /* Focus visible para accesibilidad */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--menta);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  /* =========================================================
+     ACCESIBILIDAD: respeta prefers-reduced-motion.
+  ==========================================================*/
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .on-scroll { opacity: 1 !important; transform: none !important; }
+  }
+
+  /* =========================================================
+     SCROLL REVEAL (Motor unificado)
+  ==========================================================*/
+  .on-scroll {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateY(24px);
+    transition: opacity 0.7s var(--reveal-ease), transform 0.7s var(--reveal-ease);
+    will-change: opacity, transform;
   }
-  
-  /* Estado visible activado por JS (Intersection Observer) */
-  .fade-up.is-visible {
+  .on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
+  /* Fallback si JS no corre */
+  .no-js .on-scroll { opacity: 1; transform: none; }
 
-  /* Flechas animadas */
-  .arrow {
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
+  /* Stagger delays */
+  .d1 { transition-delay: 0.08s; }
+  .d2 { transition-delay: 0.16s; }
+  .d3 { transition-delay: 0.24s; }
+  .d4 { transition-delay: 0.32s; }
 
   /* ===== NAV ===== */
-  nav{
+  nav {
     position: sticky;
-    top:0;
+    top: 0;
     z-index: 100;
     background-color: var(--azul);
-    padding: 18px 6vw;
-    display:flex;
+    padding: 14px 5vw;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 14px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease; /* Transición para sticky nav */
+    gap: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    transition: padding var(--transicion), box-shadow var(--transicion), background-color var(--transicion);
   }
   
-  /* Estado del Nav al hacer scroll */
-  nav.scrolled {
-    background-color: rgba(26, 46, 68, 0.95);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    padding: 12px 6vw; /* Se comprime ligeramente */
+  nav.is-scrolled {
+    padding: 9px 5vw;
+    background-color: rgba(22, 40, 59, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.22);
   }
 
-  nav .logo{
+  nav .logo {
     color: var(--papel);
-    font-size: 18px;
-    letter-spacing: 1px;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-  }
-  
-  nav .logo:hover {
-    transform: scale(1.02);
-  }
-
-  nav .logo span{ color: var(--menta); }
-  
-  nav ul{
-    list-style:none;
-    display:flex;
-    gap: 26px;
+    font-size: 15px;
+    letter-spacing: 0.8px;
+    font-weight: 700;
     font-family: Arial, Helvetica, sans-serif;
+    white-space: nowrap;
   }
-  
-  nav ul li a{
+  nav .logo span { color: var(--menta); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+  }
+  nav ul li a {
     color: var(--papel);
-    font-size: 13px;
-    letter-spacing: 0.5px;
+    font-size: 12px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
-    opacity: 0.85;
+    opacity: 0.88;
+    transition: opacity var(--transicion), color var(--transicion);
+    border-bottom: 2px solid transparent;
+    padding-bottom: 3px;
     position: relative;
-    padding-bottom: 4px;
-    transition: opacity 0.3s ease, color 0.3s ease;
   }
-  
-  /* Animación de subrayado sutil en el Nav */
   nav ul li a::after {
     content: '';
     position: absolute;
@@ -114,684 +140,919 @@
     bottom: 0;
     left: 0;
     background-color: var(--menta);
-    transition: width 0.3s ease;
+    transition: width var(--transicion);
   }
-
-  nav ul li a:hover{
+  nav ul li a:hover,
+  nav ul li a:focus-visible {
     opacity: 1;
     color: var(--menta);
   }
-  
-  nav ul li a:hover::after {
+  nav ul li a:hover::after,
+  nav ul li a:focus-visible::after {
     width: 100%;
   }
 
-  /* ===== HERO ===== */
-  /* Animación de entrada para el Hero (Load) */
-  @keyframes heroFadeUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  header.hero{
-    background: linear-gradient(160deg, var(--azul) 0%, #24405c 100%);
-    color: var(--papel);
-    padding: 90px 6vw 70px 6vw;
-    text-align: center;
+  /* Botón Instagram en nav */
+  .btn-ig {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1.5px solid var(--menta);
+    color: var(--menta);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 30px;
+    transition: all var(--transicion);
     position: relative;
     overflow: hidden;
   }
-  
-  header.hero > * {
-    animation: heroFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    opacity: 0;
+  .btn-ig:hover {
+    background: var(--menta);
+    color: var(--azul);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(127,181,163,0.35);
   }
+  .btn-ig:active { transform: translateY(0) scale(0.97); }
+  .btn-ig::after { display: none !important; }
 
-  header.hero .eyebrow{
+  /* ===== HERO ===== */
+  header.hero {
+    background: linear-gradient(165deg, var(--azul) 0%, #243f5c 60%, #2b4a6b 100%);
+    background-size: 220% 220%;
+    color: var(--papel);
+    padding: 72px 5vw 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: heroDrift 22s ease-in-out infinite;
+  }
+  @keyframes heroDrift {
+    0%, 100% { background-position: 0% 40%; }
+    50% { background-position: 100% 60%; }
+  }
+  header.hero::after {
+    content: "";
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: var(--papel);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+  header.hero::before {
+    content: "";
+    position: absolute;
+    top: -35%;
+    left: 50%;
+    width: 560px;
+    height: 560px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(127,181,163,0.16) 0%, rgba(127,181,163,0) 70%);
+    pointer-events: none;
+  }
+  .hero .eyebrow {
     font-family: Arial, Helvetica, sans-serif;
     color: var(--menta);
-    font-size: 13px;
-    letter-spacing: 3px;
+    font-size: 12px;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 16px;
-    animation-delay: 0.1s;
+    font-weight: 700;
+    margin-bottom: 14px;
+    position: relative;
   }
-  
-  header.hero h1{
-    font-size: clamp(32px, 5vw, 52px);
-    line-height: 1.2;
+  .hero h1 {
+    font-size: clamp(28px, 6vw, 46px);
+    line-height: 1.22;
     margin-bottom: 18px;
-    animation-delay: 0.2s;
+    font-weight: 400;
+    position: relative;
   }
-  
-  header.hero p{
-    max-width: 640px;
-    margin: 0 auto;
-    font-size: 16px;
-    opacity: 0.85;
+  .hero p {
+    max-width: 580px;
+    margin: 0 auto 28px;
+    font-size: 15px;
+    opacity: 0.9;
     font-style: italic;
-    animation-delay: 0.3s;
+    line-height: 1.7;
+    position: relative;
   }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--coral);
+    color: var(--blanco);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 13px 26px;
+    border-radius: 32px;
+    letter-spacing: 0.3px;
+    transition: all var(--transicion);
+    box-shadow: 0 4px 16px rgba(232, 128, 154, 0.35);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-cta:hover {
+    background: #d76c86;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 24px rgba(232, 128, 154, 0.45);
+  }
+  .hero-cta:active { transform: translateY(0) scale(0.98); }
+  .hero-cta::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -75%;
+    width: 45%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.65s ease;
+  }
+  .hero-cta:hover::after { left: 130%; }
 
-  /* ===== SECTION GENERAL ===== */
-  section{
-    padding: 80px 6vw;
-    max-width: 1180px;
+  /* ===== SECTIONS ===== */
+  section {
+    padding: 64px 5vw;
+    max-width: 1100px;
     margin: 0 auto;
   }
-  .section-title{
+  .section-title {
     font-family: Arial, Helvetica, sans-serif;
     color: var(--coral);
-    font-size: 13px;
-    letter-spacing: 3px;
+    font-size: 12px;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 8px;
     text-align: center;
   }
-  .section-heading{
-    font-size: clamp(26px, 4vw, 36px);
+  .section-heading {
+    font-size: clamp(24px, 4.5vw, 34px);
     color: var(--azul);
     text-align: center;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
+    font-weight: 400;
+    position: relative;
   }
-  .section-sub{
-    text-align:center;
-    max-width: 620px;
-    margin: 0 auto 50px auto;
+  .section-heading::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--menta);
+    margin: 14px auto 0;
+    transition: width 0.6s var(--reveal-ease) 0.15s;
+  }
+  .on-scroll.is-visible .section-heading::after,
+  .section-heading.is-visible::after {
+    width: 56px;
+  }
+  .section-sub {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 40px;
     color: var(--grafito);
     opacity: 0.8;
     font-size: 15px;
   }
 
-  /* ===== DIARIO CARDS ===== */
-  .diario-grid{
+  /* ===== DIARIO ===== */
+  .diario-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    gap: 22px;
   }
-  
-  .diario-card{
-    background-color: #FFFFFF;
-    border-radius: 16px;
-    padding: 40px 32px;
-    box-shadow: 0 8px 24px rgba(26,46,68,0.06);
-    border-top: 5px solid var(--menta);
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  .diario-card {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 28px 24px 24px;
+    box-shadow: 0 6px 20px var(--sombra);
+    border-top: 4px solid var(--menta);
+    transition: transform var(--transicion), box-shadow var(--transicion);
     position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
-  
-  /* Stagger effects asignados mediante nth-child para las cards del diario */
-  .diario-card:nth-child(1) { transition-delay: 0.1s; }
-  .diario-card:nth-child(2) { border-top-color: var(--coral); transition-delay: 0.2s; }
-  .diario-card:nth-child(3) { border-top-color: var(--azul); transition-delay: 0.3s; }
-  
-  /* Resetea el delay al hacer hover para que la animación sea instantánea */
-  .diario-card:hover{
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 20px 40px rgba(26,46,68,0.12);
-    transition-delay: 0s; 
+  .diario-card:nth-child(2) { border-top-color: var(--coral); }
+  .diario-card:nth-child(3) { border-top-color: var(--azul); }
+  .diario-card:hover {
+    transform: translateY(-7px) scale(1.012);
+    box-shadow: 0 18px 34px var(--sombra-hover);
   }
-  
-  .diario-card .icon{
-    font-size: 34px;
-    margin-bottom: 18px;
-    display:block;
-    transition: transform 0.3s ease;
-  }
-  
-  .diario-card:hover .icon {
-    transform: scale(1.1) rotate(5deg);
-  }
-
-  .diario-card h3{
-    color: var(--azul);
-    font-size: 21px;
+  .diario-card .icon {
+    font-size: 30px;
     margin-bottom: 12px;
+    display: block;
+    transition: transform 0.4s var(--reveal-ease);
   }
-  .diario-card p{
-    font-size: 14.5px;
+  .diario-card:hover .icon {
+    transform: scale(1.15) rotate(-5deg);
+  }
+  .diario-card h3 {
+    color: var(--azul);
+    font-size: 19px;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .diario-card > p {
+    font-size: 14px;
     color: var(--grafito);
     opacity: 0.85;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
+    flex-grow: 0;
   }
-  .diario-card .tag{
-    display:inline-block;
+  .diario-card .tag {
+    display: inline-block;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
+    font-size: 10.5px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--azul);
-    background-color: var(--papel);
-    padding: 6px 14px;
+    background: var(--papel);
+    padding: 5px 12px;
     border-radius: 20px;
-    font-weight: bold;
-    margin-bottom: 24px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    align-self: flex-start;
+    transition: background var(--transicion), color var(--transicion);
   }
-
-  /* ===== ENTRADAS DEL DIARIO ===== */
-  .diario-card .entradas{
+  .diario-card:hover .tag {
+    background: var(--menta);
+    color: var(--blanco);
+  }
+  .diario-card .entradas {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    border-top: 1px dashed #cfc9ba;
-    padding-top: 20px;
+    gap: 12px;
+    border-top: 1px dashed #d4cfc3;
+    padding-top: 16px;
+    margin-top: auto;
   }
-  .entrada{
-    background-color: var(--papel);
-    border-radius: 10px;
-    padding: 16px 18px;
-    border: 1px dashed transparent;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+  .entrada {
+    background: var(--papel);
+    border-radius: 12px;
+    padding: 14px 16px;
+    border: 1px dashed #d4cfc3;
+    transition: border-color var(--transicion), background var(--transicion);
   }
-  .entrada:hover {
-    border-color: #cfc9ba;
-    background-color: #faf9f6;
-  }
-  .entrada .entrada-meta{
+  .entrada:hover { border-color: var(--menta); }
+  .entrada .entrada-meta {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 10.5px;
-    letter-spacing: 0.5px;
+    font-size: 10px;
+    letter-spacing: 0.4px;
     text-transform: uppercase;
     color: var(--coral);
-    font-weight: bold;
-    margin-bottom: 6px;
+    font-weight: 700;
+    margin-bottom: 5px;
   }
-  .entrada h5{
+  .entrada h5 {
     color: var(--azul);
-    font-size: 15.5px;
+    font-size: 14.5px;
     margin-bottom: 6px;
     line-height: 1.35;
+    font-weight: 400;
   }
-  .entrada p{
-    font-size: 13.5px;
+  .entrada p {
+    font-size: 13px;
     color: var(--grafito);
-    opacity: 0.7;
+    opacity: 0.75;
     font-style: italic;
     margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-  
-  .entrada a.leer-mas{
-    display: inline-block;
-    margin-top: 10px;
+
+  /* ===== BOTÓN Leer más ===== */
+  .btn-leer {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
     color: var(--azul);
+    background: transparent;
+    border: 1.5px solid var(--menta);
+    padding: 8px 16px;
+    border-radius: 24px;
     position: relative;
+    overflow: hidden;
+    transition: all var(--transicion);
   }
-  
-  /* Animación Hover en enlaces "Leer más" */
-  .entrada a.leer-mas::after {
-    content: '';
+  .btn-leer:hover {
+    background: var(--menta);
+    color: var(--azul);
+    border-color: var(--menta);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 6px 16px rgba(127, 181, 163, 0.35);
+  }
+  .btn-leer:active { transform: translateY(0) scale(0.97); }
+  .btn-leer svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.3s var(--reveal-ease);
+  }
+  .btn-leer:hover svg { transform: translateX(4px); }
+
+  /* ===== RIPPLE EFFECT ===== */
+  .is-rippling::before {
+    content: "";
     position: absolute;
-    width: 100%;
-    height: 1px;
-    bottom: -2px;
-    left: 0;
-    background-color: var(--menta);
-    transition: transform 0.3s ease;
-    transform-origin: right;
-    transform: scaleX(1);
+    top: var(--ry, 50%);
+    left: var(--rx, 50%);
+    width: 8px; height: 8px;
+    background: rgba(255,255,255,0.55);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: rippleGrow 0.55s ease-out;
+    pointer-events: none;
   }
-  .entrada a.leer-mas:hover::after {
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-  .entrada a.leer-mas:hover .arrow {
-    transform: translateX(4px);
+  @keyframes rippleGrow {
+    to { transform: translate(-50%, -50%) scale(14); opacity: 0; }
   }
 
   /* ===== CONVERSATORIOS ===== */
-  .conv-month{
-    margin-bottom: 60px;
+  .conv-month {
+    margin-bottom: 48px;
   }
-  .conv-month h3{
+  .conv-month h3 {
     font-family: Arial, Helvetica, sans-serif;
     color: var(--azul);
-    font-size: 20px;
-    letter-spacing: 0.5px;
-    margin-bottom: 24px;
-    padding-bottom: 10px;
+    font-size: 17px;
+    letter-spacing: 0.4px;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
     border-bottom: 2px solid var(--menta);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
   }
-
-  .conv-list{
+  .conv-list {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
   }
-
-  .conv-card{
-    background-color: #FFFFFF;
+  .conv-card {
+    background: var(--blanco);
     border-radius: 14px;
-    padding: 26px 30px;
+    padding: 20px 22px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 24px;
-    box-shadow: 0 4px 16px rgba(26,46,68,0.04);
-    border-left: 5px solid var(--coral);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    gap: 18px;
+    box-shadow: 0 4px 14px var(--sombra);
+    border-left: 4px solid var(--coral);
+    transition: box-shadow var(--transicion), transform var(--transicion), border-left-color var(--transicion);
   }
-  
-  .conv-card:hover{
-    transform: translateX(6px);
-    box-shadow: -4px 10px 22px rgba(26,46,68,0.08);
+  .conv-card:hover {
+    box-shadow: 0 10px 26px var(--sombra-hover);
+    transform: translateY(-3px);
   }
-  
-  .conv-card.tbd{
-    border-left-color: #cccccc;
-    opacity: 0.65;
+  .conv-card.tbd {
+    border-left-color: #c8c4b8;
+    opacity: 0.72;
   }
   .conv-card.tbd:hover {
     transform: none;
-    box-shadow: 0 4px 16px rgba(26,46,68,0.04);
+    box-shadow: 0 4px 14px var(--sombra);
   }
-
-  .conv-date{
-    flex: 0 0 90px;
+  .conv-date {
+    flex: 0 0 72px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
   }
-  .conv-date .day{
-    font-size: 30px;
-    font-weight: bold;
+  .conv-date .day {
+    font-size: 26px;
+    font-weight: 700;
     color: var(--azul);
     line-height: 1;
+    transition: color var(--transicion);
   }
-  .conv-date .label{
-    font-size: 11px;
+  .conv-card:hover .conv-date .day { color: var(--coral); }
+  .conv-date .label {
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--coral);
-    font-weight: bold;
+    font-weight: 700;
   }
-
-  .conv-info{
-    flex: 1 1 280px;
+  .conv-info {
+    flex: 1 1 240px;
+    min-width: 0;
   }
-  .conv-info h4{
+  .conv-info h4 {
     color: var(--azul);
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-size: 16px;
+    margin-bottom: 6px;
+    font-weight: 400;
+    line-height: 1.3;
   }
-  .conv-info .desc-placeholder{
-    font-size: 14px;
+  .conv-info .desc {
+    font-size: 13.5px;
     color: var(--grafito);
-    opacity: 0.6;
-    font-style: italic;
-    border: 1px dashed #cfc9ba;
-    border-radius: 8px;
-    padding: 10px 14px;
-    background-color: var(--papel);
+    opacity: 0.78;
+    line-height: 1.5;
   }
-
-  .conv-action{
+  .conv-action {
     flex: 0 0 auto;
     margin-left: auto;
   }
-  
-  .conv-btn{
-    display: inline-block;
-    background-color: var(--coral);
-    color: #FFFFFF;
+
+  /* ===== BOTONES CONVERSATORIOS ===== */
+  .btn-conv {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 13px;
-    padding: 12px 26px;
-    border-radius: 30px;
     letter-spacing: 0.3px;
+    padding: 12px 24px;
+    border-radius: 28px;
     white-space: nowrap;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
-  }
-  
-  /* Micro-interacciones en botones */
-  .conv-btn:hover{
-    background-color: #d76c86;
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 6px 15px rgba(232, 128, 154, 0.4);
-    filter: brightness(1.05);
-  }
-  
-  .conv-btn:hover .arrow {
-    transform: translateX(4px);
-  }
-  
-  .conv-btn:active {
-    transform: translateY(0) scale(0.98);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transicion);
   }
 
-  .conv-btn.disabled{
-    background-color: #cccccc;
-    pointer-events: none;
+  .btn-conv--primary {
+    background: var(--coral);
+    color: var(--blanco);
+    box-shadow: 0 4px 14px rgba(232, 128, 154, 0.3);
+  }
+  .btn-conv--primary:hover {
+    background: #d76c86;
+    transform: translateY(-2px) scale(1.025);
+    box-shadow: 0 10px 22px rgba(232, 128, 154, 0.42);
+  }
+  .btn-conv--primary:active { transform: translateY(0) scale(0.97); }
+  .btn-conv--primary svg {
+    width: 15px;
+    height: 15px;
+    transition: transform 0.3s var(--reveal-ease);
+  }
+  .btn-conv--primary:hover svg { transform: translateX(3px); }
+  .btn-conv--primary::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -75%;
+    width: 45%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+  }
+  .btn-conv--primary:hover::after { left: 130%; }
+
+  .btn-conv--disabled {
+    background: #e5e1d8;
+    color: #8a857a;
     box-shadow: none;
+    pointer-events: none;
+    cursor: default;
   }
 
   /* ===== FOOTER ===== */
-  footer{
-    background-color: var(--azul);
+  footer {
+    background: var(--azul);
     color: var(--papel);
     text-align: center;
-    padding: 60px 6vw;
+    padding: 40px 5vw 36px;
     font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
   }
-  footer p{
-    font-size: 12.5px;
-    opacity: 0.7;
-    margin-top: 6px;
-  }
-  footer .footer-logo{
+  footer .footer-logo {
     color: var(--menta);
-    font-weight: bold;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 14px;
     letter-spacing: 1px;
+    margin-bottom: 8px;
   }
-  
-  /* Botón Instagram en el Footer */
-  .ig-btn {
+  footer p {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-bottom: 18px;
+  }
+  .footer-ig {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background-color: transparent;
-    color: var(--papel);
-    border: 1px solid var(--papel);
-    padding: 10px 24px;
-    border-radius: 30px;
-    font-size: 13px;
-    font-weight: bold;
-    letter-spacing: 1px;
+    background: rgba(127, 181, 163, 0.15);
+    border: 1.5px solid var(--menta);
+    color: var(--menta);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    transition: all 0.3s ease;
-    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transicion);
   }
-  
-  .ig-btn:hover {
-    background-color: var(--papel);
+  .footer-ig:hover {
+    background: var(--menta);
     color: var(--azul);
     transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(127,181,163,0.3);
   }
-  
-  .ig-btn:hover .arrow {
-    transform: translateX(4px);
+  .footer-ig:active { transform: translateY(0) scale(0.97); }
+
+  /* ===== MOBILE PRIORITY ===== */
+  @media (max-width: 720px) {
+    nav {
+      padding: 12px 4vw;
+      flex-wrap: wrap;
+    }
+    nav ul {
+      gap: 12px;
+      width: 100%;
+      justify-content: flex-start;
+      order: 3;
+      padding-top: 4px;
+    }
+    nav .logo { font-size: 14px; }
+    .btn-ig { padding: 6px 12px; font-size: 10.5px; }
+
+    header.hero {
+      padding: 52px 5vw 56px;
+      animation-duration: 30s;
+    }
+    header.hero::after { height: 50px; bottom: -25px; }
+    .hero p { font-size: 14.5px; margin-bottom: 24px; }
+
+    section { padding: 48px 4.5vw; }
+
+    .diario-grid { gap: 18px; }
+    .diario-card { padding: 22px 18px 20px; }
+    .diario-card:hover { transform: translateY(-4px) scale(1.005); }
+
+    .btn-leer {
+      width: 100%;
+      justify-content: center;
+      padding: 11px 16px;
+      font-size: 13px;
+    }
+
+    .conv-card {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 18px 16px;
+      gap: 12px;
+    }
+    .conv-date {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex: none;
+      text-align: left;
+    }
+    .conv-date .day { font-size: 22px; }
+    .conv-action {
+      margin-left: 0;
+      width: 100%;
+    }
+    .btn-conv {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 14px;
+    }
+
+    .on-scroll { transform: translateY(16px); }
   }
 
-  /* ===== MEDIA QUERIES & ACCESIBILIDAD ===== */
-  @media (max-width: 640px){
-    .conv-card{ flex-direction: column; align-items: flex-start; }
-    .conv-action{ margin-left: 0; width: 100%; }
-    .conv-btn{ width: 100%; text-align: center; }
-    nav ul{ gap: 14px; }
-  }
-
-  /* Respeta la preferencia del usuario si tiene configurado "reducir movimiento" en su OS */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-    .fade-up {
-      opacity: 1 !important;
-      transform: none !important;
-    }
+  @media (max-width: 420px) {
+    .hero h1 { font-size: 26px; }
+    nav ul li a { font-size: 11px; }
   }
 </style>
 </head>
-<body>
+<body class="no-js">
 
-<nav id="navbar">
+<!-- ===================== NAV ===================== -->
+<nav id="mainNav">
   <div class="logo">SOCCEUS <span>· Psicología</span></div>
   <ul>
     <li><a href="#diario">El Diario</a></li>
     <li><a href="#conversatorios">Conversatorios</a></li>
+    <li>
+      <a href="https://www.instagram.com/AQUI_VA_EL_LINK_DE_INSTAGRAM"
+         class="btn-ig"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Seguinos en Instagram">
+        Instagram
+      </a>
+    </li>
   </ul>
 </nav>
 
+<!-- ===================== HERO ===================== -->
 <header class="hero">
-  <div class="eyebrow">Sociedad Científica Cordobesa de Estudiantes de la Salud</div>
-  <h1>Un espacio para pensar,<br>compartir y construirnos</h1>
-  <p>Día a día nos cuestionamos el mundo que habitamos, nos hacemos preguntas que no siempre encuentran respuesta. Incluso una respuesta, a veces, resulta insuficiente, una idea cambia de rumbo o una verdad absoluta se descarta. Es ahí, en esa incertidumbre, donde surgen nuevas interrogantes que nos impulsan a leer, investigar, debatir, crear. Los cuestionadores no siempre sabemos a dónde nos conducen, pero una de ellas puede ser el puntapié para los proyectos que darán forma a nuestro futuro. Este periódico nace para darles un lugar a esas preguntas y para documentar el camino que recorremos en el intento de responderlas. No pretendemos ofrecer una única mirada ni una verdad absoluta sino que buscamos reunir voces distintas, experiencias y reflexiones que surgen dentro y fuera del aula. Como lectora, descubrí en el arte y la literatura la posibilidad de encontrar a alguien que ya había sentido, pensado lo mismo y había logrado poner en palabras lo que yo no pude. Asimismo, con el tiempo entendí que parte de nuestra formación no solo es leer a los grandes, sino animarnos a sumar nuestra propia voz. Compartir una idea, un poema, una ilustración, una fotografía o una reflexión también es una forma de aprender porque el conocimiento no permanece inmóvil, no se estanca, sino que se transforma al circular, dialogar y encontrarse con un otro al que interpelar. Los invitamos a recorrer estas páginas y, sobre todo, a apropiarse de este proyecto. Sus ideas, experiencias y creaciones pueden formar parte de próximas ediciones. “Alguien, te lo aseguro, nos recordará en otro tiempo” -Safos</p>
+  <div class="eyebrow on-scroll">Sociedad Científica Cordobesa de Estudiantes de la Salud</div>
+  <h1 class="on-scroll d1">Un espacio para pensar,<br>compartir y construirnos</h1>
+  <p class="on-scroll d2">
+    Desde la mirada de quienes estudiamos Psicología, este espacio reúne preguntas, reflexiones y experiencias que surgen dentro y fuera del aula. No buscamos una única respuesta, sino un lugar donde las distintas voces puedan encontrarse, dialogar y enriquecer la formación que estamos transitando.
+  </p>
+  <a href="https://www.instagram.com/AQUI_VA_EL_LINK_DE_INSTAGRAM"
+     class="hero-cta on-scroll d3"
+     target="_blank"
+     rel="noopener noreferrer">
+    Seguinos en Instagram
+  </a>
 </header>
 
 <!-- ===================== DIARIO ===================== -->
 <section id="diario">
-  <div class="section-title fade-up">Nuestro diario - Publicable - Dir. Angelica Veron - 2101573 </div>
-  <h2 class="section-heading fade-up">¿Qué secciones tiene?</h2>
-  <p class="section-sub fade-up">Tres espacios distintos, una misma búsqueda: pensar la Psicología desde donde la vivimos como estudiantes.</p>
+  <div class="section-title on-scroll">Nuestro diario · Dir. Angélica Verón</div>
+  <h2 class="section-heading on-scroll">Tres espacios, una misma búsqueda</h2>
+  <p class="section-sub on-scroll">Pensar la Psicología desde donde la vivimos como estudiantes: reflexión, debate y experiencia en primera persona.</p>
 
   <div class="diario-grid">
-    <div class="diario-card fade-up">
-      <span class="icon">🛋️</span>
+    <!-- Card 1 -->
+    <article class="diario-card on-scroll">
+      <span class="icon" aria-hidden="true">🛋️</span>
       <h3>Diván Abierto</h3>
-      <p>Un espacio de reflexión libre, donde estudiantes comparten experiencias, dudas y miradas sobre la formación y la práctica psicológica.</p>
+      <p>Un espacio de reflexión libre donde estudiantes comparten experiencias, dudas y miradas sobre la formación y la práctica psicológica.</p>
       <span class="tag">Reflexión</span>
-
       <div class="entradas">
         <div class="entrada">
-          <div class="entrada-meta">1º Edicion · Autor: Jazmin Kermes Lopez</div>
-          <h5>Pero querés ser psicólogo</h5>
-          <p>¿Por qué psicología? Esa es una pregunta que tanto vos como yo nos hicimos en algún momento — una pregunta que tal vez incluso hoy haya rondado por tu cabeza.</p>
-          <a href="https://cloud.umami.is/q/6oeYBPlRR" class="leer-mas">Leer más <span class="arrow">→</span></a>
+          <div class="entrada-meta">1ª Edición · Jazmín Kermes López</div>
+          <h5>¿Pero querés ser psicólogo?</h5>
+          <p>¿Por qué Psicología? Esa es una pregunta que tanto vos como yo nos hicimos en algún momento — una pregunta que tal vez incluso hoy haya rondado por tu cabeza.</p>
+          <a href="https://cloud.umami.is/q/6oeYBPlRR" class="btn-leer" target="_blank" rel="noopener">
+            Leer más
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="diario-card fade-up">
-      <span class="icon">💡</span>
+    <!-- Card 2 -->
+    <article class="diario-card on-scroll d1">
+      <span class="icon" aria-hidden="true">💡</span>
       <h3>Clínica de Ideas</h3>
       <p>Debate, análisis y propuestas: la sección donde se discuten enfoques, casos y corrientes que atraviesan nuestra formación.</p>
       <span class="tag">Debate</span>
-
       <div class="entradas">
         <div class="entrada">
-          <div class="entrada-meta">1º Edicion · Autor: Anna Pagliero</div>
+          <div class="entrada-meta">1ª Edición · Anna Pagliero</div>
           <h5>¿Es posible sentirse suficiente en una cultura que siempre promete una versión mejor de nosotros mismos?</h5>
-          <p>Vivimos en una época que convirtió el bienestar en un proyecto de optimización constante, pareciera cada vez más que mejorar es un requisito, potenciar lo que somos es fundamental.</p>
-          <a href="https://cloud.umami.is/q/CaiD3KOfB" class="leer-mas">Leer más <span class="arrow">→</span></a>
+          <p>Vivimos en una época que convirtió el bienestar en un proyecto de optimización constante. Pareciera que mejorar es un requisito y no basta solo con ser.</p>
+          <a href="https://cloud.umami.is/q/CaiD3KOfB" class="btn-leer" target="_blank" rel="noopener">
+            Leer más
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="diario-card fade-up">
-      <span class="icon">📖</span>
+    <!-- Card 3 -->
+    <article class="diario-card on-scroll d2">
+      <span class="icon" aria-hidden="true">📖</span>
       <h3>Parcial de Vida</h3>
       <p>Historias, anécdotas y vivencias del día a día universitario, contadas en primera persona por quienes transitan la carrera.</p>
       <span class="tag">Testimonios</span>
-
       <div class="entradas">
         <div class="entrada">
-          <div class="entrada-meta">1º Edicion · Autor: Lara Bischoff Liendo</div>
+          <div class="entrada-meta">1ª Edición · Lara Bischoff Liendo</div>
           <h5>Siempre fui una persona estructurada</h5>
-          <p>Mi vida siempre funcionó de esa manera… sea porque interioricé cómo hacerlo de mis padres en la niñez…quizá porque siempre me dio paz mental…o tal vez, porque era la única forma que veía de sobrevivir.</p>
-          <a href="https://cloud.umami.is/q/U6Ue11Q6C" class="leer-mas">Leer más <span class="arrow">→</span></a>
+          <p>Mi vida siempre funcionó de esa manera… sea porque interioricé cómo hacerlo de mis padres o porque era la única forma que veía de sobrevivir a la automatización de la vida diaria. El proceso de postulación a las PPS desafió todos mis esquemas.</p>
+          <a href="https://cloud.umami.is/q/U6Ue11Q6C" class="btn-leer" target="_blank" rel="noopener">
+            Leer más
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
-    </div>
+    </article>
   </div>
 </section>
 
 <!-- ===================== CONVERSATORIOS ===================== -->
 <section id="conversatorios">
-  <div class="section-title fade-up">Fechas de acción 🧉</div>
-  <h2 class="section-heading fade-up">Conversatorios</h2>
-  <p class="section-sub fade-up">Todos los viernes. Encuentros abiertos para pensar juntos los distintos caminos de la Psicología.</p>
+  <div class="section-title on-scroll">Fechas de acción</div>
+  <h2 class="section-heading on-scroll">Conversatorios</h2>
+  <p class="section-sub on-scroll">Encuentros abiertos, los viernes, para pensar juntos los distintos caminos de la Psicología.</p>
 
   <!-- AGOSTO -->
   <div class="conv-month">
-    <h3 class="fade-up">🏛️ Agosto</h3>
+    <h3 class="on-scroll">Agosto</h3>
     <div class="conv-list">
-
-      <div class="conv-card fade-up">
+      <div class="conv-card on-scroll">
         <div class="conv-date">
           <div class="day">14</div>
           <div class="label">Viernes</div>
         </div>
         <div class="conv-info">
           <h4>Construcción de la identidad profesional</h4>
-          <div class="desc-placeholder">Construyendo el camino profesional es un conversatorio pensado para estudiantes de la carrera que quieren empezar a poner en palabras una pregunta muy presente en esta etapa: cómo pasar de la formación universitaria al ejercicio profesional. Durante el encuentro vamos a abrir una conversación sobre los primeros años de trabajo, la inserción laboral, la construcción de la identidad profesional y los desafíos que suelen aparecer al comenzar.</div>
+          <div class="desc">Conversatorio pensado para quienes quieren poner en palabras cómo pasar de la formación universitaria al ejercicio profesional: primeros años de trabajo, inserción laboral y los desafíos que suelen aparecer al comenzar.</div>
         </div>
         <div class="conv-action">
-          <a href="https://luma.com/0k6lal8e" class="conv-btn">Inscribirme <span class="arrow">→</span></a>
+          <a href="https://luma.com/0k6lal8e" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
+            Inscribirme
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
 
-      <div class="conv-card fade-up">
+      <div class="conv-card on-scroll d1">
         <div class="conv-date">
           <div class="day">21</div>
           <div class="label">Viernes</div>
         </div>
         <div class="conv-info">
-          <h4>PPs y Tramo Final</h4>
-          <div class="desc-placeholder">Se considera pertinente realizar esta charla informativa, debido a las consultas y demandas de las estudiantes de los años anteriores a quinto año acerca de conocer sobre la temática relacionada a las PPS y la modalidad de cursado, como así también sobre las materias del último año, ya que estas no se conocen sino una vez que se comienza a cursar dicho período de la carrera.</div>
+          <h4>PPS y Tramo Final</h4>
+          <div class="desc">Espacio informativo orientado a responder las consultas frecuentes sobre las Prácticas Profesionales Supervisadas y las materias del último año de la carrera.</div>
         </div>
         <div class="conv-action">
-          <a href="https://luma.com/md3z0h9y" class="conv-btn">Inscribirme <span class="arrow">→</span></a>
+          <a href="https://luma.com/md3z0h9y" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
+            Inscribirme
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
 
-      <div class="conv-card fade-up">
+      <div class="conv-card on-scroll d2">
         <div class="conv-date">
           <div class="day">28</div>
           <div class="label">Viernes</div>
         </div>
         <div class="conv-info">
-          <h4>Psicología Deportiva: Una guía práctica para tus primeros pasos</h4>
-          <div class="desc-placeholder">Una presentación del área y de qué manera se pone en práctica dentro del mundo actual</div>
+          <h4>Psicología Deportiva: una guía práctica para tus primeros pasos</h4>
+          <div class="desc">Presentación del área y de cómo se pone en práctica en el contexto actual.</div>
         </div>
         <div class="conv-action">
-          <a href="https://luma.com/tttyi5n9" class="conv-btn">Inscribirme <span class="arrow">→</span></a>
+          <a href="https://luma.com/tttyi5n9" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
+            Inscribirme
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
-
     </div>
   </div>
 
   <!-- SEPTIEMBRE -->
   <div class="conv-month">
-    <h3 class="fade-up">🏛️ Septiembre</h3>
+    <h3 class="on-scroll">Septiembre</h3>
     <div class="conv-list">
-
-      <div class="conv-card fade-up">
+      <div class="conv-card on-scroll">
         <div class="conv-date">
           <div class="day">04</div>
           <div class="label">Viernes</div>
         </div>
         <div class="conv-info">
-          <h4>Institución Psiclo - Trastornos de la alimentación</h4>
-          <div class="desc-placeholder">La Institución Psiclo los invita a un encuentro dedicado a los trastornos de la alimentación, un espacio pensado para abordar esta temática desde una perspectiva clínica y profesional.</div>
+          <h4>Institución Psiclo — Trastornos de la alimentación</h4>
+          <div class="desc">Encuentro dedicado a los trastornos de la alimentación, desde una perspectiva clínica y profesional.</div>
         </div>
         <div class="conv-action">
-          <a href="https://luma.com/kbidogw4" class="conv-btn">Inscribirme <span class="arrow">→</span></a>
+          <a href="https://luma.com/kbidogw4" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
+            Inscribirme
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
 
-      <div class="conv-card fade-up">
+      <div class="conv-card on-scroll d1">
         <div class="conv-date">
           <div class="day">11</div>
           <div class="label">Viernes</div>
         </div>
         <div class="conv-info">
-          <h4>(En construcción)</h4>
-          <div class="desc-placeholder">¡Estate atento! Que las sorpresas siempre existieron</div>
+          <h4>Próximamente</h4>
+          <div class="desc">Estamos preparando el próximo encuentro. Mantente atento a las novedades.</div>
         </div>
         <div class="conv-action">
-          <a href="#" class="conv-btn">Inscribirme <span class="arrow">→</span></a>
+          <span class="btn-conv btn-conv--disabled">Próximamente</span>
         </div>
       </div>
 
-      <div class="conv-card tbd fade-up">
+      <div class="conv-card tbd on-scroll d2">
         <div class="conv-date">
           <div class="day">18</div>
           <div class="label">Viernes</div>
         </div>
         <div class="conv-info">
           <h4>Sexología</h4>
-          <div class="desc-placeholder">¡Estate atento! Que las sorpresas siempre existieron</div>
+          <div class="desc">En construcción. Te avisaremos cuando esté disponible la inscripción.</div>
         </div>
         <div class="conv-action">
-          <a href="#" class="conv-btn disabled">Próximamente</a>
+          <span class="btn-conv btn-conv--disabled">Próximamente</span>
         </div>
       </div>
 
-      <div class="conv-card tbd fade-up">
+      <div class="conv-card tbd on-scroll d3">
         <div class="conv-date">
           <div class="day">25</div>
           <div class="label">Viernes</div>
         </div>
         <div class="conv-info">
-          <h4>(En construcción)</h4>
-          <div class="desc-placeholder">¡Estate atento! Que las sorpresas siempre existieron</div>
+          <h4>En construcción</h4>
+          <div class="desc">Estamos definiendo el tema y los invitados. Pronto más información.</div>
         </div>
         <div class="conv-action">
-          <a href="#" class="conv-btn disabled">Próximamente</a>
+          <span class="btn-conv btn-conv--disabled">Próximamente</span>
         </div>
       </div>
-
     </div>
   </div>
-
 </section>
 
+<!-- ===================== FOOTER ===================== -->
 <footer>
-  <div class="footer-logo">SOCCEUS · Sección Psicología</div>
-  <p>Equipo Organizador</p>
-  
-  <!-- Botón de IG solicitado -->
-  <a href="AQUI_VA_EL_LINK_DE_INSTAGRAM" target="_blank" rel="noopener noreferrer" class="ig-btn">
-    Seguinos en Instagram <span class="arrow">→</span>
+  <div class="footer-logo on-scroll">SOCCEUS · Sección Psicología</div>
+  <p class="on-scroll d1">Equipo organizador · Estudiantes de Psicología</p>
+
+  <a href="https://www.instagram.com/AQUI_VA_EL_LINK_DE_INSTAGRAM"
+     class="footer-ig on-scroll d2"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Seguinos en Instagram">
+    Seguinos en Instagram
   </a>
 </footer>
 
-<!-- ===== SCRIPTS PARA ANIMACIONES UI/UX ===== -->
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    
-    // 1. Intersection Observer para fade-up (Scroll reveal)
-    const fadeUpElements = document.querySelectorAll('.fade-up');
-    
-    const appearOptions = {
-      threshold: 0.15, // Activa cuando el 15% del elemento es visible
-      rootMargin: "0px 0px -50px 0px"
-    };
+  // Quitamos el fallback no-js apenas el script corre.
+  document.body.classList.remove('no-js');
 
-    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) {
-          return;
-        } else {
+  /* ============================================================
+     MOTOR ÚNICO DE SCROLL REVEAL 
+  ============================================================ */
+  (function () {
+    var elements = document.querySelectorAll('.on-scroll');
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target); // Solo animar la primera vez
+          observer.unobserve(entry.target);
         }
       });
-    }, appearOptions);
-
-    fadeUpElements.forEach(el => {
-      appearOnScroll.observe(el);
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
     });
 
-    // 2. Efecto Sticky Nav más elegante con scroll
-    const navbar = document.getElementById('navbar');
-    
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
+    elements.forEach(function (el) { observer.observe(el); });
+  })();
+
+  /* ============================================================
+     NAV DINÁMICO AL HACER SCROLL
+  ============================================================ */
+  (function () {
+    var nav = document.getElementById('mainNav');
+    var ticking = false;
+
+    function update() {
+      nav.classList.toggle('is-scrolled', window.scrollY > 10);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
       }
-    });
+    }, { passive: true });
+  })();
 
-  });
+  /* ============================================================
+     MICRO-RIPPLE EN BOTONES PRINCIPALES
+  ============================================================ */
+  (function () {
+    var rippleTargets = document.querySelectorAll('.btn-leer, .btn-conv--primary, .btn-ig, .hero-cta, .footer-ig');
+
+    rippleTargets.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        btn.style.setProperty('--rx', x + '%');
+        btn.style.setProperty('--ry', y + '%');
+        btn.classList.remove('is-rippling');
+        // Forzamos reflow para poder re-disparar la animación en clicks seguidos
+        void btn.offsetWidth;
+        btn.classList.add('is-rippling');
+        setTimeout(function () { btn.classList.remove('is-rippling'); }, 600);
+      });
+    });
+  })();
 </script>
 
 </body>
