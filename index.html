@@ -39,16 +39,12 @@
     outline: none;
   }
 
-  /* Focus visible para accesibilidad */
   a:focus-visible, button:focus-visible {
     outline: 2px solid var(--menta);
     outline-offset: 4px;
     border-radius: 4px;
   }
 
-  /* =========================================================
-     ACCESIBILIDAD: respeta prefers-reduced-motion.
-  ==========================================================*/
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.001ms !important;
@@ -59,9 +55,6 @@
     .on-scroll { opacity: 1 !important; transform: none !important; }
   }
 
-  /* =========================================================
-     SCROLL REVEAL (Motor unificado)
-  ==========================================================*/
   .on-scroll {
     opacity: 0;
     transform: translateY(24px);
@@ -72,10 +65,8 @@
     opacity: 1;
     transform: translateY(0);
   }
-  /* Fallback si JS no corre */
   .no-js .on-scroll { opacity: 1; transform: none; }
 
-  /* Stagger delays */
   .d1 { transition-delay: 0.08s; }
   .d2 { transition-delay: 0.16s; }
   .d3 { transition-delay: 0.24s; }
@@ -152,7 +143,6 @@
     width: 100%;
   }
 
-  /* Botón Instagram en nav */
   .btn-ig {
     display: inline-flex;
     align-items: center;
@@ -279,7 +269,7 @@
   /* ===== SECTIONS ===== */
   section {
     padding: 64px 5vw;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
   }
   .section-title {
@@ -322,147 +312,101 @@
     font-size: 15px;
   }
 
-  /* ===== DIARIO ===== */
-  .diario-grid {
+  /* ===== PANEL COMBINADO: DIARIO + CONVERSATORIOS ===== */
+  .panel-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 22px;
+    grid-template-columns: minmax(280px, 380px) 1fr;
+    gap: 32px;
+    align-items: start;
   }
-  .diario-card {
+
+  /* --- Tarjeta única del Diario --- */
+  .diario-summary {
     background: var(--blanco);
     border-radius: var(--radio);
-    padding: 28px 24px 24px;
+    padding: 32px 28px;
     box-shadow: 0 6px 20px var(--sombra);
     border-top: 4px solid var(--menta);
     transition: transform var(--transicion), box-shadow var(--transicion);
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    position: sticky;
+    top: 96px;
   }
-  .diario-card:nth-child(2) { border-top-color: var(--coral); }
-  .diario-card:nth-child(3) { border-top-color: var(--azul); }
-  .diario-card:hover {
-    transform: translateY(-7px) scale(1.012);
+  .diario-summary:hover {
+    transform: translateY(-5px);
     box-shadow: 0 18px 34px var(--sombra-hover);
   }
-  .diario-card .icon {
-    font-size: 30px;
-    margin-bottom: 12px;
+  .diario-summary .icon {
+    font-size: 34px;
+    margin-bottom: 14px;
     display: block;
-    transition: transform 0.4s var(--reveal-ease);
   }
-  .diario-card:hover .icon {
-    transform: scale(1.15) rotate(-5deg);
-  }
-  .diario-card h3 {
+  .diario-summary h3 {
     color: var(--azul);
-    font-size: 19px;
-    margin-bottom: 8px;
+    font-size: 22px;
+    margin-bottom: 12px;
     font-weight: 400;
+    line-height: 1.3;
   }
-  .diario-card > p {
-    font-size: 14px;
+  .diario-summary p {
+    font-size: 14.5px;
     color: var(--grafito);
     opacity: 0.85;
-    margin-bottom: 14px;
-    flex-grow: 0;
-  }
-  .diario-card .tag {
-    display: inline-block;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10.5px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--azul);
-    background: var(--papel);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-weight: 700;
-    margin-bottom: 18px;
-    align-self: flex-start;
-    transition: background var(--transicion), color var(--transicion);
-  }
-  .diario-card:hover .tag {
-    background: var(--menta);
-    color: var(--blanco);
-  }
-  .diario-card .entradas {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border-top: 1px dashed #d4cfc3;
-    padding-top: 16px;
-    margin-top: auto;
-  }
-  .entrada {
-    background: var(--papel);
-    border-radius: 12px;
-    padding: 14px 16px;
-    border: 1px dashed #d4cfc3;
-    transition: border-color var(--transicion), background var(--transicion);
-  }
-  .entrada:hover { border-color: var(--menta); }
-  .entrada .entrada-meta {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    color: var(--coral);
-    font-weight: 700;
-    margin-bottom: 5px;
-  }
-  .entrada h5 {
-    color: var(--azul);
-    font-size: 14.5px;
-    margin-bottom: 6px;
-    line-height: 1.35;
-    font-weight: 400;
-  }
-  .entrada p {
-    font-size: 13px;
-    color: var(--grafito);
-    opacity: 0.75;
-    font-style: italic;
-    margin-bottom: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    margin-bottom: 22px;
   }
 
-  /* ===== BOTÓN Leer más ===== */
-  .btn-leer {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 12px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12.5px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
+  /* --- Botones de autores/secciones --- */
+  .diario-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-autor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
+    background: var(--papel);
+    border: 1.5px solid transparent;
+    border-left: 4px solid var(--menta);
     color: var(--azul);
-    background: transparent;
-    border: 1.5px solid var(--menta);
-    padding: 8px 16px;
-    border-radius: 24px;
+    padding: 12px 16px;
+    border-radius: 12px;
     position: relative;
     overflow: hidden;
     transition: all var(--transicion);
   }
-  .btn-leer:hover {
-    background: var(--menta);
-    color: var(--azul);
-    border-color: var(--menta);
-    transform: translateY(-1px) scale(1.02);
-    box-shadow: 0 6px 16px rgba(127, 181, 163, 0.35);
+  .btn-autor:nth-child(2) { border-left-color: var(--coral); }
+  .btn-autor:nth-child(3) { border-left-color: var(--azul); }
+  .btn-autor .seccion {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
   }
-  .btn-leer:active { transform: translateY(0) scale(0.97); }
-  .btn-leer svg {
+  .btn-autor .seccion svg {
+    margin-left: auto;
     width: 14px;
     height: 14px;
+    flex-shrink: 0;
     transition: transform 0.3s var(--reveal-ease);
   }
-  .btn-leer:hover svg { transform: translateX(4px); }
+  .btn-autor .autor {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11.5px;
+    opacity: 0.7;
+    font-style: normal;
+  }
+  .btn-autor:hover {
+    background: var(--blanco);
+    box-shadow: 0 8px 18px var(--sombra);
+    transform: translateY(-2px);
+  }
+  .btn-autor:hover .seccion svg { transform: translateX(4px); }
 
   /* ===== RIPPLE EFFECT ===== */
   .is-rippling::before {
@@ -481,10 +425,26 @@
     to { transform: translate(-50%, -50%) scale(14); opacity: 0; }
   }
 
-  /* ===== CONVERSATORIOS ===== */
-  .conv-month {
-    margin-bottom: 48px;
+  /* ===== CONVERSATORIOS (columna derecha del panel) ===== */
+  .conv-col-heading {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--coral);
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
   }
+  .conv-col-sub {
+    color: var(--grafito);
+    opacity: 0.75;
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .conv-month {
+    margin-bottom: 40px;
+  }
+  .conv-month:last-child { margin-bottom: 0; }
   .conv-month h3 {
     font-family: Arial, Helvetica, sans-serif;
     color: var(--azul);
@@ -670,6 +630,16 @@
   .footer-ig:active { transform: translateY(0) scale(0.97); }
 
   /* ===== MOBILE PRIORITY ===== */
+  @media (max-width: 900px) {
+    .panel-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .diario-summary {
+      position: static;
+    }
+  }
+
   @media (max-width: 720px) {
     nav {
       padding: 12px 4vw;
@@ -694,16 +664,7 @@
 
     section { padding: 48px 4.5vw; }
 
-    .diario-grid { gap: 18px; }
-    .diario-card { padding: 22px 18px 20px; }
-    .diario-card:hover { transform: translateY(-4px) scale(1.005); }
-
-    .btn-leer {
-      width: 100%;
-      justify-content: center;
-      padding: 11px 16px;
-      font-size: 13px;
-    }
+    .diario-summary { padding: 26px 22px; }
 
     .conv-card {
       flex-direction: column;
@@ -773,198 +734,165 @@
   </a>
 </header>
 
-<!-- ===================== DIARIO ===================== -->
+<!-- ===================== PANEL: DIARIO + CONVERSATORIOS ===================== -->
 <section id="diario">
   <div class="section-title on-scroll">Nuestro diario · Dir. Angélica Verón</div>
-  <h2 class="section-heading on-scroll">Tres espacios, una misma búsqueda</h2>
-  <p class="section-sub on-scroll">Pensar la Psicología desde donde la vivimos como estudiantes: reflexión, debate y experiencia en primera persona.</p>
+  <h2 class="section-heading on-scroll">El diario y nuestros próximos encuentros</h2>
+  <p class="section-sub on-scroll">Todo lo que estamos construyendo en un mismo vistazo: la publicación estudiantil y la agenda de conversatorios.</p>
 
-  <div class="diario-grid">
-    <!-- Card 1 -->
-    <article class="diario-card on-scroll">
-      <span class="icon" aria-hidden="true">🛋️</span>
-      <h3>Diván Abierto</h3>
-      <p>Un espacio de reflexión libre donde estudiantes comparten experiencias, dudas y miradas sobre la formación y la práctica psicológica.</p>
-      <span class="tag">Reflexión</span>
-      <div class="entradas">
-        <div class="entrada">
-          <div class="entrada-meta">1ª Edición · Jazmín Kermes López</div>
-          <h5>¿Pero querés ser psicólogo?</h5>
-          <p>¿Por qué Psicología? Esa es una pregunta que tanto vos como yo nos hicimos en algún momento — una pregunta que tal vez incluso hoy haya rondado por tu cabeza.</p>
-          <a href="https://cloud.umami.is/q/6oeYBPlRR" class="btn-leer" target="_blank" rel="noopener">
-            Leer más
+  <div class="panel-grid">
+
+    <!-- ===== Columna izquierda: tarjeta única del Diario ===== -->
+    <article class="diario-summary on-scroll">
+      <span class="icon" aria-hidden="true">📔</span>
+      <h3>Diario de Carrera</h3>
+      <p>
+        Nuestra publicación estudiantil, pensada por y para quienes cursamos Psicología. Reúne tres secciones —Diván Abierto, Clínica de Ideas y Parcial de Vida— con reflexiones, debates y testimonios en primera persona sobre la formación y la práctica.
+      </p>
+      <div class="diario-links">
+        <a href="https://cloud.umami.is/q/6oeYBPlRR" class="btn-autor" target="_blank" rel="noopener">
+          <span class="seccion">
+            Diván Abierto
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
+          </span>
+          <span class="autor">Jazmín Kermes López</span>
+        </a>
+        <a href="https://cloud.umami.is/q/CaiD3KOfB" class="btn-autor" target="_blank" rel="noopener">
+          <span class="seccion">
+            Clínica de Ideas
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+          <span class="autor">Anna Pagliero</span>
+        </a>
+        <a href="https://cloud.umami.is/q/U6Ue11Q6C" class="btn-autor" target="_blank" rel="noopener">
+          <span class="seccion">
+            Parcial de Vida
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+          <span class="autor">Lara Bischoff Liendo</span>
+        </a>
       </div>
     </article>
 
-    <!-- Card 2 -->
-    <article class="diario-card on-scroll d1">
-      <span class="icon" aria-hidden="true">💡</span>
-      <h3>Clínica de Ideas</h3>
-      <p>Debate, análisis y propuestas: la sección donde se discuten enfoques, casos y corrientes que atraviesan nuestra formación.</p>
-      <span class="tag">Debate</span>
-      <div class="entradas">
-        <div class="entrada">
-          <div class="entrada-meta">1ª Edición · Anna Pagliero</div>
-          <h5>¿Es posible sentirse suficiente en una cultura que siempre promete una versión mejor de nosotros mismos?</h5>
-          <p>Vivimos en una época que convirtió el bienestar en un proyecto de optimización constante. Pareciera que mejorar es un requisito y no basta solo con ser.</p>
-          <a href="https://cloud.umami.is/q/CaiD3KOfB" class="btn-leer" target="_blank" rel="noopener">
-            Leer más
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-    </article>
+    <!-- ===== Columna derecha: Conversatorios ===== -->
+    <div id="conversatorios">
+      <div class="conv-col-heading on-scroll">Ciclo de Conversatorios 2026</div>
+      <p class="conv-col-sub on-scroll">Encuentros abiertos, los viernes, para pensar juntos los distintos caminos de la Psicología.</p>
 
-    <!-- Card 3 -->
-    <article class="diario-card on-scroll d2">
-      <span class="icon" aria-hidden="true">📖</span>
-      <h3>Parcial de Vida</h3>
-      <p>Historias, anécdotas y vivencias del día a día universitario, contadas en primera persona por quienes transitan la carrera.</p>
-      <span class="tag">Testimonios</span>
-      <div class="entradas">
-        <div class="entrada">
-          <div class="entrada-meta">1ª Edición · Lara Bischoff Liendo</div>
-          <h5>Siempre fui una persona estructurada</h5>
-          <p>Mi vida siempre funcionó de esa manera… sea porque interioricé cómo hacerlo de mis padres o porque era la única forma que veía de sobrevivir a la automatización de la vida diaria. El proceso de postulación a las PPS desafió todos mis esquemas.</p>
-          <a href="https://cloud.umami.is/q/U6Ue11Q6C" class="btn-leer" target="_blank" rel="noopener">
-            Leer más
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-    </article>
-  </div>
-</section>
+      <!-- AGOSTO -->
+      <div class="conv-month">
+        <h3 class="on-scroll">Agosto</h3>
+        <div class="conv-list">
+          <div class="conv-card on-scroll">
+            <div class="conv-date">
+              <div class="day">21</div>
+              <div class="label">Viernes</div>
+            </div>
+            <div class="conv-info">
+              <h4>PPS y Tramo Final</h4>
+              <div class="desc">Espacio informativo orientado a responder las consultas frecuentes sobre las Prácticas Profesionales Supervisadas y las materias del último año de la carrera.</div>
+            </div>
+            <div class="conv-action">
+              <a href="https://luma.com/md3z0h9y" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
+                Inscribirme
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
 
-<!-- ===================== CONVERSATORIOS ===================== -->
-<section id="conversatorios">
-  <div class="section-title on-scroll">Fechas de acción</div>
-  <h2 class="section-heading on-scroll">Conversatorios</h2>
-  <p class="section-sub on-scroll">Encuentros abiertos, los viernes, para pensar juntos los distintos caminos de la Psicología.</p>
-
-  <!-- AGOSTO -->
-  <div class="conv-month">
-    <h3 class="on-scroll">Agosto</h3>
-    <div class="conv-list">
-      <div class="conv-card on-scroll">
-        <div class="conv-date">
-          <div class="day">14</div>
-          <div class="label">Viernes</div>
-        </div>
-        <div class="conv-info">
-          <h4>Construcción de la identidad profesional</h4>
-          <div class="desc">Conversatorio pensado para quienes quieren poner en palabras cómo pasar de la formación universitaria al ejercicio profesional: primeros años de trabajo, inserción laboral y los desafíos que suelen aparecer al comenzar.</div>
-        </div>
-        <div class="conv-action">
-          <a href="https://luma.com/0k6lal8e" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
-            Inscribirme
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          <div class="conv-card on-scroll d1">
+            <div class="conv-date">
+              <div class="day">28</div>
+              <div class="label">Viernes</div>
+            </div>
+            <div class="conv-info">
+              <h4>Psicología Deportiva: una guía práctica para tus primeros pasos</h4>
+              <div class="desc">Presentación del área y de cómo se pone en práctica en el contexto actual.</div>
+            </div>
+            <div class="conv-action">
+              <a href="https://luma.com/tttyi5n9" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
+                Inscribirme
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="conv-card on-scroll d1">
-        <div class="conv-date">
-          <div class="day">21</div>
-          <div class="label">Viernes</div>
-        </div>
-        <div class="conv-info">
-          <h4>PPS y Tramo Final</h4>
-          <div class="desc">Espacio informativo orientado a responder las consultas frecuentes sobre las Prácticas Profesionales Supervisadas y las materias del último año de la carrera.</div>
-        </div>
-        <div class="conv-action">
-          <a href="https://luma.com/md3z0h9y" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
-            Inscribirme
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+      <!-- SEPTIEMBRE -->
+      <div class="conv-month">
+        <h3 class="on-scroll">Septiembre</h3>
+        <div class="conv-list">
+          <div class="conv-card on-scroll">
+            <div class="conv-date">
+              <div class="day">04</div>
+              <div class="label">Viernes</div>
+            </div>
+            <div class="conv-info">
+              <h4>Institución Psiclo — Trastornos de la alimentación</h4>
+              <div class="desc">Encuentro dedicado a los trastornos de la alimentación, desde una perspectiva clínica y profesional.</div>
+            </div>
+            <div class="conv-action">
+              <a href="https://luma.com/kbidogw4" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
+                Inscribirme
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="conv-card on-scroll d1">
+            <div class="conv-date">
+              <div class="day">11</div>
+              <div class="label">Viernes</div>
+            </div>
+            <div class="conv-info">
+              <h4>Re-descubrir la Psicología Organizacional</h4>
+              <div class="desc">Te invitamos a Re-descubrir la Psicología Organizacional, un encuentro pensado para acercarnos a cómo se aplica realmente la psicología dentro de las organizaciones. Vamos a conversar sobre las prácticas concretas de esta disciplina, sus desafíos actuales y el rol que cumple en el día a día de las empresas e instituciones.</div>
+            </div>
+            <div class="conv-action">
+              <a href="https://luma.com/qr8zkcej" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
+                Inscribirme
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="conv-card on-scroll d2">
+            <div class="conv-date">
+              <div class="day">18</div>
+              <div class="label">Viernes</div>
+            </div>
+            <div class="conv-info">
+              <h4>Reconectando: La Sexología Frente al Mundo Actual</h4>
+              <div class="desc">Será un espacio para compartir ideas, actualizar perspectivas y poner en conversación experiencias y saberes en torno a la sexualidad, el deseo, el cuidado y la intervención profesional. Una oportunidad para reconectar con el oficio, revisar herramientas y abrir nuevas miradas frente a los temas que hoy atraviesan la sexología.</div>
+            </div>
+            <div class="conv-action">
+              <a href="https://luma.com/0k6lal8e" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
+                Inscribirme
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="conv-card tbd on-scroll d3">
+            <div class="conv-date">
+              <div class="day">25</div>
+              <div class="label">Viernes</div>
+            </div>
+            <div class="conv-info">
+              <h4>En construcción</h4>
+              <div class="desc">Estamos definiendo el tema y los invitados. Pronto más información.</div>
+            </div>
+            <div class="conv-action">
+              <span class="btn-conv btn-conv--disabled">Próximamente</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="conv-card on-scroll d2">
-        <div class="conv-date">
-          <div class="day">28</div>
-          <div class="label">Viernes</div>
-        </div>
-        <div class="conv-info">
-          <h4>Psicología Deportiva: una guía práctica para tus primeros pasos</h4>
-          <div class="desc">Presentación del área y de cómo se pone en práctica en el contexto actual.</div>
-        </div>
-        <div class="conv-action">
-          <a href="https://luma.com/tttyi5n9" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
-            Inscribirme
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
     </div>
-  </div>
+    <!-- fin columna derecha -->
 
-  <!-- SEPTIEMBRE -->
-  <div class="conv-month">
-    <h3 class="on-scroll">Septiembre</h3>
-    <div class="conv-list">
-      <div class="conv-card on-scroll">
-        <div class="conv-date">
-          <div class="day">04</div>
-          <div class="label">Viernes</div>
-        </div>
-        <div class="conv-info">
-          <h4>Institución Psiclo — Trastornos de la alimentación</h4>
-          <div class="desc">Encuentro dedicado a los trastornos de la alimentación, desde una perspectiva clínica y profesional.</div>
-        </div>
-        <div class="conv-action">
-          <a href="https://luma.com/kbidogw4" class="btn-conv btn-conv--primary" target="_blank" rel="noopener">
-            Inscribirme
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <div class="conv-card on-scroll d1">
-        <div class="conv-date">
-          <div class="day">11</div>
-          <div class="label">Viernes</div>
-        </div>
-        <div class="conv-info">
-          <h4>Próximamente</h4>
-          <div class="desc">Estamos preparando el próximo encuentro. Mantente atento a las novedades.</div>
-        </div>
-        <div class="conv-action">
-          <span class="btn-conv btn-conv--disabled">Próximamente</span>
-        </div>
-      </div>
-
-      <div class="conv-card tbd on-scroll d2">
-        <div class="conv-date">
-          <div class="day">18</div>
-          <div class="label">Viernes</div>
-        </div>
-        <div class="conv-info">
-          <h4>Sexología</h4>
-          <div class="desc">En construcción. Te avisaremos cuando esté disponible la inscripción.</div>
-        </div>
-        <div class="conv-action">
-          <span class="btn-conv btn-conv--disabled">Próximamente</span>
-        </div>
-      </div>
-
-      <div class="conv-card tbd on-scroll d3">
-        <div class="conv-date">
-          <div class="day">25</div>
-          <div class="label">Viernes</div>
-        </div>
-        <div class="conv-info">
-          <h4>En construcción</h4>
-          <div class="desc">Estamos definiendo el tema y los invitados. Pronto más información.</div>
-        </div>
-        <div class="conv-action">
-          <span class="btn-conv btn-conv--disabled">Próximamente</span>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -983,12 +911,8 @@
 </footer>
 
 <script>
-  // Quitamos el fallback no-js apenas el script corre.
   document.body.classList.remove('no-js');
 
-  /* ============================================================
-     MOTOR ÚNICO DE SCROLL REVEAL 
-  ============================================================ */
   (function () {
     var elements = document.querySelectorAll('.on-scroll');
 
@@ -1012,9 +936,6 @@
     elements.forEach(function (el) { observer.observe(el); });
   })();
 
-  /* ============================================================
-     NAV DINÁMICO AL HACER SCROLL
-  ============================================================ */
   (function () {
     var nav = document.getElementById('mainNav');
     var ticking = false;
@@ -1032,11 +953,8 @@
     }, { passive: true });
   })();
 
-  /* ============================================================
-     MICRO-RIPPLE EN BOTONES PRINCIPALES
-  ============================================================ */
   (function () {
-    var rippleTargets = document.querySelectorAll('.btn-leer, .btn-conv--primary, .btn-ig, .hero-cta, .footer-ig');
+    var rippleTargets = document.querySelectorAll('.btn-conv--primary, .btn-ig, .hero-cta, .footer-ig, .btn-autor');
 
     rippleTargets.forEach(function (btn) {
       btn.addEventListener('click', function (e) {
@@ -1046,7 +964,6 @@
         btn.style.setProperty('--rx', x + '%');
         btn.style.setProperty('--ry', y + '%');
         btn.classList.remove('is-rippling');
-        // Forzamos reflow para poder re-disparar la animación en clicks seguidos
         void btn.offsetWidth;
         btn.classList.add('is-rippling');
         setTimeout(function () { btn.classList.remove('is-rippling'); }, 600);
