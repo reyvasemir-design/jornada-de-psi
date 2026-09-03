@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SOCCEUS · Publicable y Conversatorios</title>
+  <meta name="description" content="SOCCEUS · Experiencias 3D. Un espacio donde el aprendizaje se construye en comunidad." />
+  <title>SOCCEUS · Conversatorios - Publicable</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
+  
   <style>
-    /* ========== VARIABLES (LIGHT MODE) ========== */
+    /* ========== VARIABLES ========== */
     :root {
       --bg-principal: #FFFFFF;
       --bg-secundario: #F8FAFC;
@@ -54,7 +57,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ========== CANVAS DE THREE.JS (fondo) ========== */
+    /* ========== CANVAS DE THREE.JS ========== */
     #three-canvas {
       position: fixed;
       top: 0;
@@ -63,7 +66,6 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
-      /* Fondo radial suave para el light mode */
       background: radial-gradient(circle at center, #FFFFFF 0%, #F1F5F9 100%);
     }
 
@@ -98,6 +100,7 @@
       font-weight: 900;
       color: var(--texto-oscuro);
       letter-spacing: -0.5px;
+      text-decoration: none;
     }
     .logo span {
       font-weight: 400;
@@ -348,7 +351,7 @@
       transform: translateY(0);
     }
     .frase-texto .word strong {
-      color: #059669; /* Verde un poco más oscuro para que lea bien sobre blanco */
+      color: #059669; 
       font-weight: 600;
       position: relative;
     }
@@ -547,7 +550,7 @@
     }
     .autor-cover:hover .card-inner {
       transform: scale(0.95);
-      opacity: 0.1; /* Difuminar contenido interior en Light Mode */
+      opacity: 0.1;
     }
 
     .card-overlay p {
@@ -596,23 +599,6 @@
     @keyframes floatEmoji {
       0% { transform: translateY(0px); }
       100% { transform: translateY(-10px); }
-    }
-
-    .autor-cover::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .autor-cover:hover::before {
-      opacity: 1;
     }
 
     /* ========== CONVERSATORIOS ========== */
@@ -675,10 +661,20 @@
       margin-left: -24px;
       z-index: 2;
     }
-    .tl-item .dot.inactive {
+    
+    /* Estado Inactivo Refactorizado */
+    .tl-item.inactive .dot {
       background: var(--texto-claro);
       box-shadow: none;
     }
+    .tl-item.inactive .day,
+    .tl-item.inactive .tl-info h4 {
+      color: var(--texto-claro);
+    }
+    .tl-item.inactive .tl-info p {
+      color: var(--texto-claro);
+    }
+
     .tl-item .tl-date {
       min-width: 80px;
       text-align: center;
@@ -832,7 +828,10 @@
     /* ========== RESPONSIVE ========== */
     @media (max-width: 768px) {
       nav ul {
-        gap: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
       }
       .hero h1 {
         font-size: 40px;
@@ -910,493 +909,452 @@
 </head>
 <body>
 
-  <div id="three-canvas"></div>
+  <div id="three-canvas" aria-hidden="true"></div>
 
   <div class="main-wrap">
 
-    <nav id="navbar">
-      <div class="logo">SOCCEUS<span class="punto">·</span><span>Psicología</span></div>
+    <nav id="navbar" aria-label="Navegación principal">
+      <a href="#" class="logo" aria-label="Volver al inicio">SOCCEUS<span class="punto">·</span><span>Psicología</span></a>
       <ul>
         <li><a href="#autores">Publicable</a></li>
         <li><a href="#conversatorios">Conversatorios</a></li>
-        <li><a href="https://www.instagram.com/jornada.de.psicologia" target="_blank" class="btn-ig">Instagram</a></li>
+        <li><a href="https://www.instagram.com/jornada.de.psicologia" target="_blank" rel="noopener noreferrer" class="btn-ig">Instagram</a></li>
       </ul>
     </nav>
 
-    <header class="hero">
-      <span class="badge">Sociedad Científica Cordobesa de Estudiantes de la Salud</span>
-      <h1>
-        <span class="highlight">Experiencias</span> que enseñan
-      </h1>
-      <p class="sub-hero">Un espacio donde el aprendizaje se construye en comunidad, con voces auténticas y encuentros que transforman.</p>
-      <div class="hero-actions">
-        <a href="#frase" class="btn-primary">Inspirate 📖</a>
-        <a href="#conversatorios" class="btn-secondary">Ver agenda 🗓️</a>
-      </div>
-    </header>
+    <main>
+      <header class="hero">
+        <span class="badge">Sociedad Científica Cordobesa de Estudiantes de la Salud</span>
+        <h1>
+          <span class="highlight">Experiencias</span> que enseñan
+        </h1>
+        <p class="sub-hero">Un espacio donde el aprendizaje se construye en comunidad, con voces auténticas y encuentros que transforman.</p>
+        <div class="hero-actions">
+          <a href="#frase" class="btn-primary">Inspirate 📖</a>
+          <a href="#conversatorios" class="btn-secondary">Ver agenda 🗓️</a>
+        </div>
+      </header>
 
-    <section class="frase-fullscreen" id="frase">
-      <div class="frase-contenedor">
-        <div class="comillas">“</div>
-        <div class="frase-texto" id="typewriter"></div>
-        <div class="frase-autor">
-          <span class="line"></span>
-          <span class="nombre">Royo, F.</span>
-          <span class="line"></span>
+      <section class="frase-fullscreen" id="frase" aria-labelledby="frase-autor">
+        <div class="frase-contenedor">
+          <div class="comillas" aria-hidden="true">“</div>
+          <div class="frase-texto" id="typewriter" aria-live="polite"></div>
+          <div class="frase-autor" id="frase-autor">
+            <span class="line" aria-hidden="true"></span>
+            <span class="nombre">Royo, F.</span>
+            <span class="line" aria-hidden="true"></span>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="stats-section">
-      <div class="stats-grid">
-        <div class="stat-circle reveal">
-          <svg viewBox="0 0 120 120">
-            <circle class="bg" cx="60" cy="60" r="50" />
-            <circle class="progress" id="progress1" cx="60" cy="60" r="50" style="--target: 62.8;" />
-          </svg>
-          <span class="number" data-target="12">3</span>
-          <div class="label">Ediciones Publicable</div>
+      <section class="stats-section" aria-label="Estadísticas de la comunidad">
+        <div class="stats-grid">
+          <article class="stat-circle reveal">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="bg" cx="60" cy="60" r="50" />
+              <circle class="progress" id="progress1" cx="60" cy="60" r="50" style="--target: 62.8;" />
+            </svg>
+            <span class="number" data-target="12">3</span>
+            <div class="label">Ediciones Publicable</div>
+          </article>
+          <article class="stat-circle reveal">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="bg" cx="60" cy="60" r="50" />
+              <circle class="progress" id="progress2" cx="60" cy="60" r="50" style="--target: 125.6;" />
+            </svg>
+            <span class="number" data-target="24">4</span>
+            <div class="label">Conversatorios</div>
+          </article>
+          <article class="stat-circle reveal">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="bg" cx="60" cy="60" r="50" />
+              <circle class="progress" id="progress3" cx="60" cy="60" r="50" style="--target: 188.5;" />
+            </svg>
+            <span class="number" data-target="350">350</span>
+            <div class="label">Estudiantes activos</div>
+          </article>
+          <article class="stat-circle reveal">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="bg" cx="60" cy="60" r="50" />
+              <circle class="progress" id="progress4" cx="60" cy="60" r="50" style="--target: 31.4;" />
+            </svg>
+            <span class="number" data-target="8">15</span>
+            <div class="label">Autores</div>
+          </article>
         </div>
-        <div class="stat-circle reveal">
-          <svg viewBox="0 0 120 120">
-            <circle class="bg" cx="60" cy="60" r="50" />
-            <circle class="progress" id="progress2" cx="60" cy="60" r="50" style="--target: 125.6;" />
-          </svg>
-          <span class="number" data-target="24">4</span>
-          <div class="label">Conversatorios</div>
-        </div>
-        <div class="stat-circle reveal">
-          <svg viewBox="0 0 120 120">
-            <circle class="bg" cx="60" cy="60" r="50" />
-            <circle class="progress" id="progress3" cx="60" cy="60" r="50" style="--target: 188.5;" />
-          </svg>
-          <span class="number" data-target="350">350</span>
-          <div class="label">Estudiantes activos</div>
-        </div>
-        <div class="stat-circle reveal">
-          <svg viewBox="0 0 120 120">
-            <circle class="bg" cx="60" cy="60" r="50" />
-            <circle class="progress" id="progress4" cx="60" cy="60" r="50" style="--target: 31.4;" />
-          </svg>
-          <span class="number" data-target="8">15</span>
-          <div class="label">Autores destacados</div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="autores-section" id="autores">
-      <h2 class="section-title reveal">📚 Publicable · 3º Edición</h2>
-      <p class="section-subtitle reveal">El diario estudiantil que refleja nuestras voces. Cada autor abre una ventana a su experiencia.</p>
-      <div class="cover-flow">
-        <div class="autor-cover reveal-scale" data-tilt>
-          <div class="card-inner">
-            <span class="emoji">🛋️</span>
-            <h4>Diván Abierto</h4>
-            <span class="seccion">Nadia Salmeron</span>
-          </div>
-          <div class="card-overlay">
-            <p>Reflexiones sobre la práctica clínica desde el primer año.</p>
-            <a href="https://cloud.umami.is/q/6oeYBPlRR" target="_blank" class="btn-overlay">Leer →</a>
-          </div>
+      <section class="autores-section" id="autores">
+        <h2 class="section-title reveal">📚 Publicable · 3º Edición</h2>
+        <p class="section-subtitle reveal">El diario estudiantil que refleja nuestras voces. Cada autor abre una ventana a su experiencia.</p>
+        <div class="cover-flow">
+          <article class="autor-cover reveal-scale" data-tilt tabindex="0">
+            <div class="card-inner">
+              <span class="emoji" aria-hidden="true">🛋️</span>
+              <h4>Diván Abierto</h4>
+              <span class="seccion">Nadia Salmeron</span>
+            </div>
+            <div class="card-overlay">
+              <p>Reflexiones sobre la cursada desde el primer año.</p>
+              <a href="https://cloud.umami.is/q/6oeYBPlRR" target="_blank" rel="noopener noreferrer" class="btn-overlay">Leer →</a>
+            </div>
+          </article>
+          <article class="autor-cover reveal-scale" data-tilt tabindex="0">
+            <div class="card-inner">
+              <span class="emoji" aria-hidden="true">💡</span>
+              <h4>Clínica de Ideas</h4>
+              <span class="seccion">Valentina Sosa</span>
+            </div>
+            <div class="card-overlay">
+              <p>Ensayos sobre teorías.</p>
+              <a href="https://cloud.umami.is/q/CaiD3KOfB" target="_blank" rel="noopener noreferrer" class="btn-overlay">Leer →</a>
+            </div>
+          </article>
+          <article class="autor-cover reveal-scale" data-tilt tabindex="0">
+            <div class="card-inner">
+              <span class="emoji" aria-hidden="true">🧩</span>
+              <h4>Parcial de Vida</h4>
+              <span class="seccion">Iñaki Guia</span>
+            </div>
+            <div class="card-overlay">
+              <p>Crónicas personales que conectan la teoría con lo cotidiano.</p>
+              <a href="https://cloud.umami.is/q/U6Ue11Q6C" target="_blank" rel="noopener noreferrer" class="btn-overlay">Leer →</a>
+            </div>
+          </article>
+          <article class="autor-cover reveal-scale" data-tilt tabindex="0">
+            <div class="card-inner">
+              <span class="emoji" aria-hidden="true">🎤</span>
+              <h4>Voces de Cátedra</h4>
+              <span class="seccion">Marianela Moretti</span>
+            </div>
+            <div class="card-overlay">
+              <p>Entrevistas y miradas desde distintas materias.</p>
+              <a href="https://cloud.umami.is/q/v2Q7xpViy" target="_blank" rel="noopener noreferrer" class="btn-overlay">Leer →</a>
+            </div>
+          </article>
         </div>
-        <div class="autor-cover reveal-scale" data-tilt>
-          <div class="card-inner">
-            <span class="emoji">💡</span>
-            <h4>Clínica de Ideas</h4>
-            <span class="seccion">Valentina Sosa</span>
-          </div>
-          <div class="card-overlay">
-            <p>Ensayos sobre teorías y su aplicación en el consultorio.</p>
-            <a href="https://cloud.umami.is/q/CaiD3KOfB" target="_blank" class="btn-overlay">Leer →</a>
-          </div>
-        </div>
-        <div class="autor-cover reveal-scale" data-tilt>
-          <div class="card-inner">
-            <span class="emoji">🧩</span>
-            <h4>Parcial de Vida</h4>
-            <span class="seccion">Iñaki Guia</span>
-          </div>
-          <div class="card-overlay">
-            <p>Crónicas personales que conectan la teoría con lo cotidiano.</p>
-            <a href="https://cloud.umami.is/q/U6Ue11Q6C" target="_blank" class="btn-overlay">Leer →</a>
-          </div>
-        </div>
-        <div class="autor-cover reveal-scale" data-tilt>
-          <div class="card-inner">
-            <span class="emoji">🎤</span>
-            <h4>Voces de Cátedra</h4>
-            <span class="seccion">Marianela Moretti</span>
-          </div>
-          <div class="card-overlay">
-            <p>Entrevistas y miradas desde distintas materias.</p>
-            <a href="https://cloud.umami.is/q/v2Q7xpViy" target="_blank" class="btn-overlay">Leer →</a>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="timeline-section" id="conversatorios">
-      <h2 class="section-title reveal">🗓️ Conversatorios · Septiembre</h2>
-      <p class="section-subtitle reveal">Encuentros semanales para debatir, aprender y conectar con colegas.</p>
-      <div class="timeline">
-        <div class="tl-item reveal">
-          <div class="dot"></div>
-          <div class="tl-date">
-            <div class="day">04</div>
-            <div class="month">Vie</div>
-          </div>
-          <div class="tl-info">
-            <h4>Institución Psiclo — Trastornos de la alimentación</h4>
-            <p>Perspectiva clínica y abordajes actuales.</p>
-          </div>
-          <div class="tl-action">
-            <a href="https://luma.com/kbidogw4" target="_blank" class="btn-tl">Inscribirme</a>
-          </div>
+      <section class="timeline-section" id="conversatorios">
+        <h2 class="section-title reveal">🗓️ Conversatorios · Septiembre</h2>
+        <p class="section-subtitle reveal">Encuentros semanales para debatir, aprender y conectar con colegas.</p>
+        <div class="timeline">
+          <article class="tl-item reveal">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="tl-date">
+              <div class="day">04</div>
+              <div class="month">Vie</div>
+            </div>
+            <div class="tl-info">
+              <h4>Institución Psiclo — Trastornos de la alimentación</h4>
+              <p>Perspectiva clínica y abordajes actuales.</p>
+            </div>
+            <div class="tl-action">
+              <a href="https://luma.com/kbidogw4" target="_blank" rel="noopener noreferrer" class="btn-tl">Inscribirme</a>
+            </div>
+          </article>
+          <article class="tl-item reveal">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="tl-date">
+              <div class="day">11</div>
+              <div class="month">Vie</div>
+            </div>
+            <div class="tl-info">
+              <h4>Re-descubrir la Psicología Organizacional</h4>
+              <p>Prácticas concretas y desafíos del ámbito laboral.</p>
+            </div>
+            <div class="tl-action">
+              <a href="https://luma.com/qr8zkcej" target="_blank" rel="noopener noreferrer" class="btn-tl">Inscribirme</a>
+            </div>
+          </article>
+          <article class="tl-item reveal">
+            <div class="dot" aria-hidden="true"></div>
+            <div class="tl-date">
+              <div class="day">18</div>
+              <div class="month">Vie</div>
+            </div>
+            <div class="tl-info">
+              <h4>Reconectando: Sexología frente al mundo actual</h4>
+              <p>Actualización en sexualidad, deseo y diversidad.</p>
+            </div>
+            <div class="tl-action">
+              <a href="https://luma.com/0k6lal8e" target="_blank" rel="noopener noreferrer" class="btn-tl">Inscribirme</a>
+            </div>
+          </article>
+          <article class="tl-item reveal inactive">
+            <div class="dot inactive" aria-hidden="true"></div>
+            <div class="tl-date">
+              <div class="day">25</div>
+              <div class="month">Vie</div>
+            </div>
+            <div class="tl-info">
+              <h4>En construcción</h4>
+              <p>Estamos definiendo el tema. ¡Pronto más!</p>
+            </div>
+            <div class="tl-action">
+              <span class="btn-tl disabled" aria-disabled="true">Próximamente</span>
+            </div>
+          </article>
         </div>
-        <div class="tl-item reveal">
-          <div class="dot"></div>
-          <div class="tl-date">
-            <div class="day">11</div>
-            <div class="month">Vie</div>
-          </div>
-          <div class="tl-info">
-            <h4>Re-descubrir la Psicología Organizacional</h4>
-            <p>Prácticas concretas y desafíos del ámbito laboral.</p>
-          </div>
-          <div class="tl-action">
-            <a href="https://luma.com/qr8zkcej" target="_blank" class="btn-tl">Inscribirme</a>
-          </div>
-        </div>
-        <div class="tl-item reveal">
-          <div class="dot"></div>
-          <div class="tl-date">
-            <div class="day">18</div>
-            <div class="month">Vie</div>
-          </div>
-          <div class="tl-info">
-            <h4>Reconectando: Sexología frente al mundo actual</h4>
-            <p>Actualización en sexualidad, deseo y diversidad.</p>
-          </div>
-          <div class="tl-action">
-            <a href="https://luma.com/0k6lal8e" target="_blank" class="btn-tl">Inscribirme</a>
-          </div>
-        </div>
-        <div class="tl-item reveal">
-          <div class="dot inactive"></div>
-          <div class="tl-date">
-            <div class="day" style="color:#94A3B8;">25</div>
-            <div class="month">Vie</div>
-          </div>
-          <div class="tl-info">
-            <h4 style="color:#94A3B8;">En construcción</h4>
-            <p style="color:#64748B;">Estamos definiendo el tema. ¡Pronto más!</p>
-          </div>
-          <div class="tl-action">
-            <span class="btn-tl disabled">Próximamente</span>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="cta-section">
-      <div class="cta-card reveal">
-        <h2>¿Te sumás a la comunidad?</h2>
-        <p>Seguinos en Instagram y enterate de todo lo que pasa en el mural de experiencias.</p>
-        <a href="https://www.instagram.com/jornada.de.psicologia" target="_blank" class="btn-primary" style="background: var(--menta); color: var(--bg-principal); box-shadow: 0 10px 30px rgba(16,185,129,0.25);">
-          @jornada.de.psicologia
-        </a>
-      </div>
-    </section>
+      <section class="cta-section">
+        <div class="cta-card reveal">
+          <h2>¿Te sumás a la comunidad?</h2>
+          <p>Seguinos en Instagram y enterate de todo lo que pasa en el mural de experiencias.</p>
+          <a href="https://www.instagram.com/jornada.de.psicologia" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background: var(--menta); color: var(--bg-principal); box-shadow: 0 10px 30px rgba(16,185,129,0.25);">
+            @jornada.de.psicologia
+          </a>
+        </div>
+      </section>
+    </main>
 
     <footer>
       <div class="footer-brand">SOCCEUS · Sección Psicología</div>
       <p>Equipo organizador · Estudiantes de Psicología</p>
       <div class="social-links">
-        <a href="2300167@uc.edu.ar" target="_blank">📧</a>
-        <a href="https://www.instagram.com/jornada.de.psicologia" target="_blank">📸</a>
+        <a href="https://www.instagram.com/jornada.de.psicologia" target="_blank" rel="noopener noreferrer" aria-label="Ir a Instagram">📸</a>
       </div>
-      <p style="font-size:12px; margin-top:16px;">Hecho con 💚 desde Córdoba</p>
+      <p style="font-size:12px; margin-top:16px;">Hecho con lagrimas y sudor de pacha</p>
     </footer>
 
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 
   <script>
-    // ============================================================
-    // 1. ESCENA DE THREE.JS CON PARTÍCULAS + ESFERA (LIGHT MODE)
-    // ============================================================
-    (function initThree() {
-      const container = document.getElementById('three-canvas');
-
-      // Escena con fondo transparente (asume el radial-gradient de CSS)
-      const scene = new THREE.Scene();
-
-      // Cámara
-      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.set(0, 2, 12);
-      camera.lookAt(0, 0, 0);
-
-      // Renderer
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      container.appendChild(renderer.domElement);
-
-      // ========== ESFERA CENTRAL (torus knot adaptado para light mode) ==========
-      const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 128, 16);
-      const material = new THREE.MeshPhysicalMaterial({
-        color: 0x10B981,     // Menta
-        emissive: 0x000000,  // Sin emissive fuerte para no quemarlo en fondo blanco
-        metalness: 0.2,
-        roughness: 0.1,
-        clearcoat: 0.8,
-        clearcoatRoughness: 0.2,
-        transparent: true,
-        opacity: 0.6,
-      });
-      const knot = new THREE.Mesh(geometry, material);
-      knot.position.set(0, 0, 0);
-      scene.add(knot);
+    // Inicialización al cargar la ventana entera para asegurar que la librería esté lista.
+    window.addEventListener('load', () => {
       
-      // Luz para iluminar el material Physical
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-      scene.add(ambientLight);
-      
-      const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
-      dirLight.position.set(5, 5, 5);
-      scene.add(dirLight);
+      // ============================================================
+      // 1. ESCENA DE THREE.JS
+      // ============================================================
+      if (typeof THREE !== 'undefined') {
+        const container = document.getElementById('three-canvas');
+        const scene = new THREE.Scene();
 
-      // Aro exterior (anillo de luz)
-      const ringGeo = new THREE.TorusGeometry(1.8, 0.03, 32, 64);
-      const ringMat = new THREE.MeshBasicMaterial({ color: 0xF43F5E, transparent: true, opacity: 0.4 });
-      const ring = new THREE.Mesh(ringGeo, ringMat);
-      ring.rotation.x = Math.PI / 2;
-      ring.position.y = 0;
-      scene.add(ring);
-
-      // Partículas (estrellas) adaptadas para fondo claro
-      const particlesCount = 1000;
-      const positions = new Float32Array(particlesCount * 3);
-      const colors = new Float32Array(particlesCount * 3);
-      const sizes = new Float32Array(particlesCount);
-
-      const colorAzulOscuro = new THREE.Color(0x0F172A);
-      const colorCoral = new THREE.Color(0xF43F5E);
-
-      for (let i = 0; i < particlesCount; i++) {
-        const radius = 6 + Math.random() * 8;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos((Math.random() * 2) - 1);
-
-        positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-        positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.6;
-        positions[i * 3 + 2] = radius * Math.cos(phi);
-
-        // Mezclar Coral y Azul Oscuro para que se vean en el fondo blanco
-        const color = Math.random() > 0.5 ? colorCoral : colorAzulOscuro;
-        colors[i * 3] = color.r;
-        colors[i * 3 + 1] = color.g;
-        colors[i * 3 + 2] = color.b;
-
-        sizes[i] = 0.05 + Math.random() * 0.15;
-      }
-
-      const particlesGeo = new THREE.BufferGeometry();
-      particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      particlesGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-      particlesGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-      const particlesMat = new THREE.PointsMaterial({
-        size: 0.08,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.7,
-        blending: THREE.NormalBlending, // Normal blending es mejor para fondos claros
-        sizeAttenuation: true,
-      });
-
-      const particles = new THREE.Points(particlesGeo, particlesMat);
-      scene.add(particles);
-
-      // ========== INTERACCIÓN CON EL MOUSE ==========
-      let mouseX = 0,
-        mouseY = 0;
-      document.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-
-        // Rotación suave de la cámara o elementos
-        camera.position.x += (Math.sin(mouseX * 0.5) * 2 - camera.position.x) * 0.05;
-        camera.position.y += (2 + mouseY * 1.2 - camera.position.y) * 0.05;
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 2, 12);
         camera.lookAt(0, 0, 0);
-      });
 
-      // ========== ANIMACIÓN ==========
-      let time = 0;
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
 
-      function animate() {
-        requestAnimationFrame(animate);
-        time += 0.002;
-
-        // Rotación del nudo
-        knot.rotation.x += 0.003;
-        knot.rotation.y += 0.005;
-        knot.rotation.z += 0.002;
-
-        // Rotación del anillo
-        ring.rotation.z += 0.002;
-        ring.rotation.x += 0.001;
-
-        // Movimiento de partículas (rotación lenta)
-        particles.rotation.y += 0.0005;
-        particles.rotation.x = Math.sin(time * 0.1) * 0.02;
-
-        // Pulsación del nudo
-        const scale = 1 + Math.sin(time * 2) * 0.02;
-        knot.scale.set(scale, scale, scale);
-
-        renderer.render(scene, camera);
-      }
-
-      animate();
-
-      // ========== RESPONSIVE ==========
-      window.addEventListener('resize', () => {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-        renderer.setSize(width, height);
-      });
-    })();
-
-    // ============================================================
-    // 2. TYPEWRITER – palabra por palabra
-    // ============================================================
-    (function typewriter() {
-      const container = document.getElementById('typewriter');
-      const text =
-        "<strong>a veces las mejores formas de aprendizaje no vienen de los libros, sino de nuestras propias experiencias y de quienes nos rodean.</strong> Con esta edición, la invitación es a hacer una pausa, recorrer estas páginas y dejarnos atravesar por lo que cada voz tiene para transmitir.";
-
-      const temp = document.createElement('div');
-      temp.innerHTML = text;
-      const words = [];
-      const walker = document.createTreeWalker(temp, NodeFilter.SHOW_TEXT, null, false);
-      let node;
-      while (node = walker.nextNode()) {
-        const parent = node.parentNode;
-        const textContent = node.textContent;
-        const isStrong = parent.tagName === 'STRONG';
-        textContent.split(' ').forEach((word, index, arr) => {
-          if (word.length === 0) return;
-          const span = document.createElement('span');
-          span.className = 'word';
-          if (isStrong) {
-            const strong = document.createElement('strong');
-            strong.textContent = word;
-            span.appendChild(strong);
-          } else {
-            span.textContent = word;
-          }
-          if (index < arr.length - 1) {
-            span.textContent += ' ';
-          }
-          words.push(span);
+        const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 128, 16);
+        const material = new THREE.MeshPhysicalMaterial({
+          color: 0x10B981,
+          emissive: 0x000000,
+          metalness: 0.2,
+          roughness: 0.1,
+          clearcoat: 0.8,
+          clearcoatRoughness: 0.2,
+          transparent: true,
+          opacity: 0.6,
         });
-      }
+        const knot = new THREE.Mesh(geometry, material);
+        scene.add(knot);
+        
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(ambientLight);
+        
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        dirLight.position.set(5, 5, 5);
+        scene.add(dirLight);
 
-      container.innerHTML = '';
-      let index = 0;
+        const ringGeo = new THREE.TorusGeometry(1.8, 0.03, 32, 64);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0xF43F5E, transparent: true, opacity: 0.4 });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.rotation.x = Math.PI / 2;
+        scene.add(ring);
 
-      function showNext() {
-        if (index < words.length) {
-          const word = words[index];
-          container.appendChild(word);
-          requestAnimationFrame(() => {
-            word.classList.add('visible');
-          });
-          index++;
-          setTimeout(showNext, 70);
-        } else {
-          const cursor = document.createElement('span');
-          cursor.className = 'cursor-blink';
-          container.appendChild(cursor);
+        const particlesCount = 1000;
+        const positions = new Float32Array(particlesCount * 3);
+        const colors = new Float32Array(particlesCount * 3);
+        const sizes = new Float32Array(particlesCount);
+        const colorAzulOscuro = new THREE.Color(0x0F172A);
+        const colorCoral = new THREE.Color(0xF43F5E);
+
+        for (let i = 0; i < particlesCount; i++) {
+          const radius = 6 + Math.random() * 8;
+          const theta = Math.random() * Math.PI * 2;
+          const phi = Math.acos((Math.random() * 2) - 1);
+
+          positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+          positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.6;
+          positions[i * 3 + 2] = radius * Math.cos(phi);
+
+          const color = Math.random() > 0.5 ? colorCoral : colorAzulOscuro;
+          colors[i * 3] = color.r;
+          colors[i * 3 + 1] = color.g;
+          colors[i * 3 + 2] = color.b;
+          sizes[i] = 0.05 + Math.random() * 0.15;
         }
+
+        const particlesGeo = new THREE.BufferGeometry();
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particlesGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        particlesGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+        const particlesMat = new THREE.PointsMaterial({
+          size: 0.08, vertexColors: true, transparent: true, opacity: 0.7,
+          blending: THREE.NormalBlending, sizeAttenuation: true,
+        });
+
+        const particles = new THREE.Points(particlesGeo, particlesMat);
+        scene.add(particles);
+
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+          mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+          mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        }, { passive: true });
+
+        let time = 0;
+        function animate() {
+          requestAnimationFrame(animate);
+          time += 0.002;
+
+          knot.rotation.x += 0.003;
+          knot.rotation.y += 0.005;
+          knot.rotation.z += 0.002;
+          ring.rotation.z += 0.002;
+          ring.rotation.x += 0.001;
+
+          particles.rotation.y += 0.0005;
+          particles.rotation.x = Math.sin(time * 0.1) * 0.02;
+
+          const scale = 1 + Math.sin(time * 2) * 0.02;
+          knot.scale.set(scale, scale, scale);
+
+          camera.position.x += (Math.sin(mouseX * 0.5) * 2 - camera.position.x) * 0.05;
+          camera.position.y += (2 + mouseY * 1.2 - camera.position.y) * 0.05;
+          camera.lookAt(0, 0, 0);
+
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        }, { passive: true });
       }
 
-      setTimeout(showNext, 500);
-    })();
+      // ============================================================
+      // 2. TYPEWRITER (Optimizado)
+      // ============================================================
+      const typeWriterContainer = document.getElementById('typewriter');
+      if (typeWriterContainer) {
+        const textArray = [
+          { text: "A veces las mejores formas de aprendizaje no vienen de los libros, " },
+          { text: "sino de nuestras propias experiencias y de quienes nos rodean. ", bold: true },
+          { text: "Con esta edición, la invitación es a hacer una pausa, recorrer estas páginas y dejarnos atravesar por lo que cada voz tiene para transmitir." }
+        ];
 
-    // ============================================================
-    // 3. TILT 3D EN TARJETAS DE AUTORES
-    // ============================================================
-    document.querySelectorAll('.autor-cover[data-tilt]').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        const rotateX = y * -8;
-        const rotateY = x * 8;
-        card.style.transform =
-          `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px) scale(1.02)`;
+        let words = [];
+        textArray.forEach(segment => {
+          segment.text.split(' ').forEach(word => {
+            if(word.trim() === '') return;
+            words.push({ text: word + ' ', bold: segment.bold });
+          });
+        });
+
+        let index = 0;
+        const renderNextWord = () => {
+          if (index < words.length) {
+            const span = document.createElement('span');
+            span.className = 'word';
+            if (words[index].bold) {
+              const strong = document.createElement('strong');
+              strong.textContent = words[index].text;
+              span.appendChild(strong);
+            } else {
+              span.textContent = words[index].text;
+            }
+            
+            typeWriterContainer.appendChild(span);
+            // Trigger de reflow
+            void span.offsetWidth;
+            span.classList.add('visible');
+            
+            index++;
+            setTimeout(renderNextWord, 60);
+          } else {
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor-blink';
+            typeWriterContainer.appendChild(cursor);
+          }
+        };
+        setTimeout(renderNextWord, 500);
+      }
+
+      // ============================================================
+      // 3. TILT 3D EN TARJETAS
+      // ============================================================
+      document.querySelectorAll('.autor-cover[data-tilt]').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          card.style.transform = `perspective(1200px) rotateX(${y * -8}deg) rotateY(${x * 8}deg) translateZ(10px) scale(1.02)`;
+        }, { passive: true });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
+        });
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
-      });
-    });
 
-    // ============================================================
-    // 4. CONTADORES + PROGRESS CIRCULAR
-    // ============================================================
-    const circles = document.querySelectorAll('.stat-circle .progress');
-    const numbers = document.querySelectorAll('.stat-circle .number');
-    let counted = false;
-
-    function animateCounters() {
-      if (counted) return;
-      numbers.forEach((num, idx) => {
-        const target = parseInt(num.getAttribute('data-target'));
+      // ============================================================
+      // 4. INTERSECTION OBSERVER & CONTADORES
+      // ============================================================
+      const circles = document.querySelectorAll('.stat-circle .progress');
+      const numbers = document.querySelectorAll('.stat-circle .number');
+      
+      function animateCounters(numElement) {
+        if (numElement.dataset.counted) return;
+        const target = parseInt(numElement.getAttribute('data-target'));
         let current = 0;
         const inc = Math.ceil(target / 45);
         const timer = setInterval(() => {
           current += inc;
           if (current >= target) {
-            num.textContent = target;
+            numElement.textContent = target;
+            numElement.dataset.counted = "true";
             clearInterval(timer);
           } else {
-            num.textContent = current;
+            numElement.textContent = current;
           }
         }, 25);
-      });
-      counted = true;
-    }
+      }
 
-    // ============================================================
-    // 5. INTERSECTION OBSERVER
-    // ============================================================
-    const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          if (entry.target.closest('.stats-grid') || entry.target.classList.contains('stat-circle')) {
-            animateCounters();
-            circles.forEach(c => c.classList.add('visible'));
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            
+            if (entry.target.classList.contains('stat-circle')) {
+              const numElement = entry.target.querySelector('.number');
+              if (numElement) animateCounters(numElement);
+            }
+            obs.unobserve(entry.target);
           }
-        }
-      });
-    }, { threshold: 0.25 });
-    revealElements.forEach(el => observer.observe(el));
+        });
+      }, { threshold: 0.15 });
 
-    // ============================================================
-    // 6. NAVBAR SCROLL
-    // ============================================================
-    const nav = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 60) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
+      document.querySelectorAll('.reveal, .reveal-scale').forEach(el => observer.observe(el));
+
+      // ============================================================
+      // 5. NAVBAR SCROLL
+      // ============================================================
+      const nav = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 60) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      }, { passive: true });
+
     });
   </script>
 
