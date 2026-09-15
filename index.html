@@ -123,6 +123,12 @@
       0% { transform: translateY(0); } 
       100% { transform: translateY(-10px); } 
     }
+    /* Nuevas Animaciones */
+    @keyframes rotateStar {
+      0% { transform: rotate(10deg) scale(1); }
+      50% { transform: rotate(25deg) scale(1.1); }
+      100% { transform: rotate(10deg) scale(1); }
+    }
 
     /* Clases de revelado por scroll */
     .reveal { 
@@ -143,7 +149,29 @@
       opacity: 1; 
       transform: scale(1); 
     }
-    .no-js .reveal, .no-js .reveal-scale { 
+    
+    /* Nuevas clases de revelado lateral */
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .no-js .reveal, .no-js .reveal-scale, .no-js .reveal-left, .no-js .reveal-right { 
       opacity: 1; 
       transform: none; 
     }
@@ -362,9 +390,9 @@
       animation: pulseComillas 3s infinite alternate;
     }
     .frase-texto {
-      font-size: clamp(22px, 3.2vw, 40px);
+      font-size: clamp(20px, 2.8vw, 34px);
       font-weight: 300;
-      line-height: 1.7;
+      line-height: 1.6;
       color: var(--texto-oscuro);
       letter-spacing: 0.3px;
       margin: 16px 0 24px;
@@ -551,7 +579,7 @@
       font-size: 200px;
       right: -40px; bottom: -60px;
       opacity: 0.05;
-      transform: rotate(10deg);
+      animation: rotateStar 10s infinite ease-in-out;
     }
     .cta-card h2 { font-size: 38px; font-weight: 800; color: var(--texto-oscuro); margin-bottom: 12px; }
     .cta-card p { color: var(--texto-medio); font-size: 17px; max-width: 500px; margin: 0 auto 32px; position: relative; }
@@ -585,7 +613,7 @@
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: 32px; }
-      .frase-texto { font-size: 18px; }
+      .frase-texto { font-size: 16px; }
       .autor-cover { flex: 0 0 100%; max-width: 260px; }
       .cover-flow { justify-content: center; }
       .btn-primary, .btn-secondary { width: 100%; text-align: center; }
@@ -628,8 +656,7 @@
         <div class="frase-contenedor">
           <div class="comillas" aria-hidden="true">“</div>
           <p class="frase-texto" id="typewriter">
-            <span class="sr-only">Esta revista no es solo un espacio para compartir lo que aprendemos, sino también una instancia de aprendizaje, encuentro, una oportunidad para poner en movimiento lo que estudiamos, compartir nuestras miradas y seguir construyendo, entre todos, nuestra propia forma de hacer Psicología.  
-.</span>
+            <span class="sr-only">Esta edición del publicable nace un poco de ese mismo asombro. Con la intención de mostrar que la Psicología también puede estar en lugares inesperados y que existen muchas formas de encontrarla o pensarla. A lo largo de estas páginas, van a encontrarse con distintas voces y temas. Te invito a recorrerla con curiosidad, dejándote interpelar por aquello que cada uno de nosotros como escritores de esta edición tenemos para aportar. Porque esta revista no es solo un espacio para compartir lo que aprendemos, sino también una instancia de aprendizaje, encuentro, una oportunidad para poner en movimiento lo que estudiamos, compartir nuestras miradas y seguir construyendo, entre todos, nuestra propia forma de hacer Psicología.</span>
           </p>
           <div class="frase-autor" id="frase-autor">
             <span class="line" aria-hidden="true"></span>
@@ -738,7 +765,7 @@
         <p class="section-subtitle reveal">Encuentros semanales para debatir, aprender y conectar con colegas.</p>
         <div class="timeline">
           
-          <article class="tl-item reveal">
+          <article class="tl-item reveal-left">
             <div class="dot" aria-hidden="true"></div>
             <div class="tl-date"><div class="day">18</div><div class="month">Vie</div></div>
             <div class="tl-info">
@@ -750,7 +777,7 @@
             </div>
           </article>
           
-          <article class="tl-item reveal inactive">
+          <article class="tl-item reveal-right inactive">
             <div class="dot" aria-hidden="true"></div>
             <div class="tl-date"><div class="day">25</div><div class="month">Vie</div></div>
             <div class="tl-info">
@@ -771,7 +798,7 @@
         <p class="section-subtitle reveal">Comenzá a construir tu identidad profesional.</p>
         <div class="timeline">
           
-          <article class="tl-item reveal">
+          <article class="tl-item reveal-left">
             <div class="dot" aria-hidden="true"></div>
             <div class="tl-date"><div class="day">2</div><div class="month">Vie</div></div>
             <div class="tl-info">
@@ -933,9 +960,11 @@
       typeWriterContainer.appendChild(visualLayer);
 
       const textArray = [
-        { text: "A veces las mejores formas de aprendizaje no vienen de los libros, " },
-        { text: "sino de nuestras propias experiencias y de quienes nos rodean. ", bold: true },
-        { text: "Con esta edición, la invitación es a hacer una pausa, recorrer estas páginas y dejarnos atravesar por lo que cada voz tiene para transmitir." }
+        { text: "Esta edición del publicable nace un poco de ese mismo asombro. " },
+        { text: "Con la intención de mostrar que la Psicología también puede estar en lugares inesperados ", bold: true },
+        { text: "y que existen muchas formas de encontrarla o pensarla. A lo largo de estas páginas, van a encontrarse con distintas voces y temas. " },
+        { text: "Te invito a recorrerla con curiosidad, dejándote interpelar por aquello que cada uno de nosotros como escritores de esta edición tenemos para aportar. ", bold: true },
+        { text: "Porque esta revista no es solo un espacio para compartir lo que aprendemos, sino también una instancia de aprendizaje, encuentro, una oportunidad para poner en movimiento lo que estudiamos, compartir nuestras miradas y seguir construyendo, entre todos, nuestra propia forma de hacer Psicología." }
       ];
 
       const words = [];
@@ -1030,9 +1059,9 @@
           });
         }, { threshold: 0.15 });
 
-        document.querySelectorAll('.reveal, .reveal-scale').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
       } else {
-        document.querySelectorAll('.reveal, .reveal-scale').forEach(el => el.classList.add('visible'));
+        document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(el => el.classList.add('visible'));
         document.querySelectorAll('.stat-circle .number').forEach(animateCounter);
       }
     }
